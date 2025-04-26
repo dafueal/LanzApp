@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles de la Playa</title>
+    <!-- Puedes enlazar el mismo style.css o uno específico -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="beach-detail-container">
+        <a href="index.html" class="back-link">← Volver al Mapa</a>
+
+        <div id="beach-content">
+            <!-- El contenido se rellenará con JavaScript -->
+            <h1 id="beach-detail-name">Cargando...</h1>
+            <img id="beach-detail-photo" src="images/placeholder.jpg" alt="Foto de la playa" style="display: none;">
+            <p id="beach-detail-description" class="description"></p>
+            <div id="beach-detail-characteristics" class="characteristics">
+                <h2>Características:</h2>
+                <p id="beach-detail-sand"></p>
+                <p id="beach-detail-concurrency"></p>
+                <p id="beach-detail-water"></p>
+                <p id="beach-detail-amenities"></p>
+                <p id="beach-detail-accessibility"></p>
+            </div>
+        </div>
+
+        <div id="error-placeholder" class="error-message" style="display: none;">
+            <!-- Mensaje de error si la playa no se encuentra -->
+        </div>
+
+    </div>
+
+    <!-- Script específico para esta página -->
+    <script src="beach-detail.js"></script>
+</body>
+</html>
