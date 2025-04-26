@@ -1,0 +1,72 @@
+[
+  {
+    "id": "papagayo",
+    "name": "Playa de Papagayo",
+    "coordinates": [28.8405, -13.7900],
+    "photoUrl": "images/papagayo.jpg",
+    "description": "Posiblemente la playa más famosa de Lanzarote, parte de una serie de impresionantes calas dentro del Monumento Natural de Los Ajaches. Conocida por su prístina arena blanca y aguas turquesas y tranquilas, ideal para nadar y hacer snorkel.",
+    "characteristics": {
+      "sandType": "Arena Blanca Fina",
+      "concurrency": "Media-Alta (especialmente en temporada)",
+      "waterQuality": "Excelente",
+      "amenities": "Pequeño bar/restaurante cercano, Aparcamiento (de pago, acceso por pista de tierra)",
+      "accessibility": "Requiere bajar por sendero en acantilado"
+    }
+  },
+  {
+    "id": "famara",
+    "name": "Playa de Famara",
+    "coordinates": [29.1150, -13.5580],
+    "photoUrl": "images/famara.jpg",
+    "description": "Una playa espectacular y extensa respaldada por imponentes acantilados (Risco de Famara). Muy popular entre surfistas y kitesurfistas debido al viento y oleaje constantes. Ofrece impresionantes vistas al atardecer.",
+    "characteristics": {
+      "sandType": "Arena Dorada",
+      "concurrency": "Media",
+      "waterQuality": "Buena (puede tener corrientes fuertes)",
+      "amenities": "Escuelas de surf, Restaurantes/cafeterías en el pueblo de Caleta de Famara",
+      "accessibility": "Fácil acceso desde el pueblo/zonas de aparcamiento"
+    }
+  },
+  {
+    "id": "playa_blanca_dorada",
+    "name": "Playa Dorada (Playa Blanca)",
+    "coordinates": [28.8625, -13.8220],
+    "photoUrl": "images/playa_dorada.jpg",
+    "description": "Una popular playa de arena dorada y bien protegida en el corazón del resort de Playa Blanca. Sus aguas tranquilas la hacen ideal para familias. Completamente equipada con servicios.",
+    "characteristics": {
+      "sandType": "Arena Dorada Fina (importada)",
+      "concurrency": "Alta",
+      "waterQuality": "Excelente (A menudo Bandera Azul)",
+      "amenities": "Hamacas, Sombrillas, Duchas, Restaurantes, Deportes acuáticos, Socorristas",
+      "accessibility": "Muy fácil acceso, paseo marítimo"
+    }
+  },
+  {
+    "id": "puerto_del_carmen_grande",
+    "name": "Playa Grande (Puerto del Carmen)",
+    "coordinates": [28.9195, -13.6675],
+    "photoUrl": "images/playa_grande.jpg",
+    "description": "La playa principal de Puerto del Carmen, una larga franja de arena dorada con aguas tranquilas. Respaldada por un animado paseo marítimo lleno de tiendas, bares y restaurantes.",
+    "characteristics": {
+        "sandType": "Arena Dorada",
+        "concurrency": "Alta",
+        "waterQuality": "Excelente (A menudo Bandera Azul)",
+        "amenities": "Hamacas, Sombrillas, Duchas, Aseos, Socorristas, Deportes acuáticos, Restaurantes, Tiendas",
+        "accessibility": "Muy fácil acceso, paseo marítimo, puntos accesibles para sillas de ruedas"
+    }
+  },
+  {
+    "id": "el_golfo_charco_verde",
+    "name": "Charco de los Clicos (El Golfo)",
+    "coordinates": [28.9790, -13.8300],
+    "photoUrl": "images/el_golfo.jpg",
+    "description": "Aunque es famoso por la laguna verde (Charco de los Clicos), aquí hay una espectacular playa de arena negra frente al océano abierto. El baño suele ser peligroso debido a las fuertes olas y corrientes, pero el paisaje es único.",
+    "characteristics": {
+        "sandType": "Arena Negra Volcánica y Guijarros",
+        "concurrency": "Media (mirador), Baja (en la playa)",
+        "waterQuality": "Variable (Olas/corrientes fuertes - No apta para baño)",
+        "amenities": "Mirador, Restaurantes en el pueblo de El Golfo cercano",
+        "accessibility": "Paseo fácil hasta el mirador, sendero para bajar a la playa"
+    }
+  }
+]
