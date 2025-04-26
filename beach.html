@@ -4,16 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalles de la Playa</title>
-    <!-- Puedes enlazar el mismo style.css o uno específico -->
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Estilos rápidos para ocultar/mostrar secciones */
+        .hidden { display: none; }
+        #user-id-section label, #user-id-section input, #user-id-section button { margin-bottom: 10px;}
+    </style>
 </head>
 <body>
 
     <div class="beach-detail-container">
         <a href="index.html" class="back-link">← Volver al Mapa</a>
 
-        <div id="beach-content">
-            <!-- El contenido se rellenará con JavaScript -->
+        <!-- === SECCIÓN DE IDENTIFICADOR DE USUARIO === -->
+        <div id="user-id-section">
+            <h2>Identificación de Usuario</h2>
+            <label for="user-id-input">Introduce tu identificador único:</label>
+            <input type="text" id="user-id-input" placeholder="Ej: miUsuario123">
+            <button id="confirm-user-id-button">Usar este Identificador</button>
+            <p id="user-id-status" style="font-style: italic;"></p>
+        </div>
+        <!-- === FIN SECCIÓN IDENTIFICADOR === -->
+
+
+        <div id="beach-content" class="hidden"> <!-- Oculto hasta tener playa y userId -->
             <h1 id="beach-detail-name">Cargando...</h1>
             <img id="beach-detail-photo" src="images/placeholder.jpg" alt="Foto de la playa" style="display: none;">
             <p id="beach-detail-description" class="description"></p>
@@ -25,10 +39,21 @@
                 <p id="beach-detail-amenities"></p>
                 <p id="beach-detail-accessibility"></p>
             </div>
+
+            <!-- === SECCIÓN DE NOTAS (Ahora depende del userId) === -->
+            <div id="notes-section-wrapper" class="user-notes-section hidden"> <!-- Oculto hasta tener userId -->
+                <h2>Mis Notas Personales (<span id="current-user-id" style="font-weight:normal;"></span>)</h2>
+                <label for="user-notes">Escribe o edita tus notas sobre esta playa:</label>
+                <textarea id="user-notes" rows="6" placeholder="Tus notas aparecerán aquí..."></textarea>
+                <button id="save-notes-button">Guardar Notas en la Nube</button>
+                <span id="notes-status" style="margin-left: 10px; font-style: italic; font-size: 0.9em;"></span>
+            </div>
+            <!-- === FIN SECCIÓN NOTAS === -->
+
         </div>
 
-        <div id="error-placeholder" class="error-message" style="display: none;">
-            <!-- Mensaje de error si la playa no se encuentra -->
+        <div id="error-placeholder" class="error-message hidden">
+            <!-- Mensaje de error -->
         </div>
 
     </div>
