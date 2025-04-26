@@ -9,18 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
         attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-    // --- Elementos del Panel de Información ---
-    const infoPanel = document.getElementById('beach-info-panel');
-    const beachNameEl = document.getElementById('beach-name');
-    const beachPhotoEl = document.getElementById('beach-photo');
-    const beachDescEl = document.getElementById('beach-description');
-    const beachSandEl = document.getElementById('beach-sand');
-    const beachConcEl = document.getElementById('beach-concurrency');
-    const beachWaterEl = document.getElementById('beach-water');
-    const beachAmenitiesEl = document.getElementById('beach-amenities');
-    const beachAccessibilityEl = document.getElementById('beach-accessibility');
-    const closeButton = document.getElementById('close-info-panel');
-
     // --- Cargar Datos de Playas y Añadir Marcadores ---
     fetch('beaches.json')
       .then(response => {
@@ -35,14 +23,14 @@ document.addEventListener('DOMContentLoaded', () => {
       .catch(error => {
           console.error('Error al cargar los datos de las playas:', error);
           const mapDiv = document.getElementById('map');
-          // Mensaje de error para el usuario
-          mapDiv.innerHTML = `<p style="text-align:center; padding: 20px; color: red;">No se pudieron cargar los datos de las playas. Por favor, revisa la consola para ver errores o asegúrate de que 'beaches.json' esté accesible.</p>`;
+          mapDiv.innerHTML = `<p class="error-message">No se pudieron cargar los datos de las playas. Por favor, revisa la consola para ver errores o asegúrate de que 'beaches.json' esté accesible.</p>`;
       });
 
     // --- Funciones ---
 
     /**
      * Añade marcadores al mapa para cada playa.
+     * Al hacer clic, redirige a la página de detalles.
      * @param {Array} beaches - Array de objetos de playa del JSON.
      */
     function addBeachMarkers(beaches) {
@@ -58,51 +46,22 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const marker = L.marker(beach.coordinates).addTo(map);
-        marker.beachInfo = beach;
+        marker.beachInfo = beach; // Guardamos la info por si acaso, aunque solo usemos el id
         marker.bindTooltip(beach.name);
 
         marker.on('click', function() {
-          displayBeachInfo(this.beachInfo);
-          map.setView(this.getLatLng(), map.getZoom());
+          // Redirigir a la página de detalles pasando el ID como parámetro
+          const beachId = this.beachInfo.id;
+          if (beachId) {
+              window.location.href = `beach.html?id=${encodeURIComponent(beachId)}`;
+          } else {
+              console.error("El marcador no tiene un ID de playa asociado.");
+              alert("No se pudo obtener el identificador de esta playa.");
+          }
         });
       });
     }
 
-    /**
-     * Rellena y muestra el panel de información para una playa seleccionada.
-     * @param {Object} beach - El objeto de datos de la playa.
-     */
-    function displayBeachInfo(beach) {
-        if (!beach) return;
-
-        beachNameEl.textContent = beach.name || 'Nombre no disponible';
-        beachPhotoEl.src = beach.photoUrl || 'images/placeholder.jpg';
-        beachPhotoEl.alt = `Foto de ${beach.name || 'la playa'}`;
-        beachDescEl.textContent = beach.description || 'No hay descripción disponible.';
-
-        // Características
-        const characteristics = beach.characteristics || {};
-        beachSandEl.innerHTML = `<strong>Arena:</strong> ${characteristics.sandType || 'N/D'}`;
-        beachConcEl.innerHTML = `<strong>Concurrencia:</strong> ${characteristics.concurrency || 'N/D'}`;
-        beachWaterEl.innerHTML = `<strong>Calidad del Agua:</strong> ${characteristics.waterQuality || 'N/D'}`;
-        beachAmenitiesEl.innerHTML = `<strong>Servicios:</strong> ${characteristics.amenities || 'N/D'}`;
-        beachAccessibilityEl.innerHTML = `<strong>Accesibilidad:</strong> ${characteristics.accessibility || 'N/D'}`;
-
-        infoPanel.style.display = 'block';
-    }
-
-    /**
-     * Oculta el panel de información.
-     */
-    function hideInfoPanel() {
-        infoPanel.style.display = 'none';
-    }
-
-    // --- Event Listeners ---
-    closeButton.addEventListener('click', hideInfoPanel);
-    map.on('click', hideInfoPanel);
-    infoPanel.addEventListener('click', (event) => {
-        event.stopPropagation();
-    });
+    // LA FUNCIÓN displayBeachInfo Y LOS LISTENERS DEL PANEL HAN SIDO ELIMINADOS
 
 }); // Fin DOMContentLoaded
