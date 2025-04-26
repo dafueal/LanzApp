@@ -1,22 +1,38 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Elementos de la página ---
+    // --- Configuración de Firebase (¡REEMPLAZA CON TUS VALORES!) ---
+    // Obtén esto de la consola de Firebase al añadir una app web a tu proyecto
+    const firebaseConfig = {
+        apiKey: "TU_API_KEY",
+        authDomain: "TU_PROJECT_ID.firebaseapp.com",
+        projectId: "TU_PROJECT_ID",
+        storageBucket: "TU_PROJECT_ID.appspot.com",
+        messagingSenderId: "TU_SENDER_ID",
+        appId: "TU_APP_ID"
+    };
+
+    // --- Inicializar Firebase ---
+    // Usaremos la API compatibilidad (v8) porque es un poco más sencilla para empezar
+    // con Firestore que la API modular (v9+), aunque ambas funcionan.
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore(); // Obtener instancia de Firestore
+
+    // --- Elementos de la página (sin cambios) ---
     const beachContentDiv = document.getElementById('beach-content');
     const beachNameEl = document.getElementById('beach-detail-name');
     const beachPhotoEl = document.getElementById('beach-detail-photo');
     const beachDescEl = document.getElementById('beach-detail-description');
     const beachCharacteristicsDiv = document.getElementById('beach-detail-characteristics');
     const beachSandEl = document.getElementById('beach-detail-sand');
-    // ... (otros elementos de características)
+    const beachConcEl = document.getElementById('beach-detail-concurrency');
+    const beachWaterEl = document.getElementById('beach-detail-water');
+    const beachAmenitiesEl = document.getElementById('beach-detail-amenities');
+    const beachAccessibilityEl = document.getElementById('beach-detail-accessibility');
     const errorPlaceholder = document.getElementById('error-placeholder');
-
-    // --- Elementos de ID de Usuario ---
     const userIdSection = document.getElementById('user-id-section');
     const userIdInput = document.getElementById('user-id-input');
     const confirmUserIdButton = document.getElementById('confirm-user-id-button');
     const userIdStatus = document.getElementById('user-id-status');
     const currentUserIdSpan = document.getElementById('current-user-id');
-
-    // --- Elementos de Notas ---
     const notesSectionWrapper = document.getElementById('notes-section-wrapper');
     const userNotesTextarea = document.getElementById('user-notes');
     const saveNotesButton = document.getElementById('save-notes-button');
@@ -25,49 +41,42 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Variables Globales ---
     const params = new URLSearchParams(window.location.search);
     const beachId = params.get('id');
-    let currentUserId = null; // El ID del usuario activo
-    let beachData = null; // Guardará los datos de la playa una vez cargados
+    let currentUserId = null;
+    let beachData = null;
+    let currentNoteDocId = null; // Guardará el ID del documento de nota existente
 
-    // --- URL Base de tu API Backend (¡DEBES CAMBIAR ESTO!) ---
-    const API_BASE_URL = '/api'; // Ejemplo: podría ser 'https://tu-backend.com/api'
+    // --- Nombre de la colección en Firestore ---
+    const NOTES_COLLECTION = 'userBeachNotes';
 
     // --- Inicialización ---
-
     if (!beachId) {
         showError("No se especificó un ID de playa en la URL.");
-        userIdSection.classList.add('hidden'); // Ocultar sección de user ID si no hay playa
+        userIdSection.classList.add('hidden');
         return;
     }
-
-    // Intentar recuperar userId de sessionStorage al cargar
     currentUserId = sessionStorage.getItem('beachExplorerUserId');
     if (currentUserId) {
         userIdInput.value = currentUserId;
         userIdStatus.textContent = `Usando ID: ${currentUserId}`;
-        currentUserIdSpan.textContent = currentUserId; // Mostrar en sección notas
-        loadBeachDetailsAndNotes(); // Cargar detalles y notas si ya tenemos ID
+        currentUserIdSpan.textContent = currentUserId;
+        loadBeachDetailsAndNotes();
     } else {
          userIdStatus.textContent = `Introduce un identificador para ver/guardar notas.`;
-         // Solo cargar detalles de la playa, no notas aún
          loadBeachDetailsOnly();
     }
 
-
-    // --- Event Listeners ---
-
+    // --- Event Listeners (sin cambios en la lógica, solo llaman a las nuevas funciones) ---
     confirmUserIdButton.addEventListener('click', () => {
         const inputId = userIdInput.value.trim();
         if (inputId) {
             currentUserId = inputId;
-            sessionStorage.setItem('beachExplorerUserId', currentUserId); // Guardar en session storage
+            sessionStorage.setItem('beachExplorerUserId', currentUserId);
             userIdStatus.textContent = `ID confirmado: ${currentUserId}`;
             currentUserIdSpan.textContent = currentUserId;
-            // Si los detalles de la playa ya se cargaron, ahora carga/refresca las notas
             if (beachData) {
-                showNotesSection(); // Asegura que la sección de notas sea visible
-                fetchNotesFromAPI(); // Llama a la API para obtener notas
+                showNotesSection();
+                fetchNotesFromFirestore(); // <--- LLAMA A LA NUEVA FUNCIÓN
             } else {
-                // Si aún no se cargaron los detalles (ej. error previo), intentar cargar todo
                 loadBeachDetailsAndNotes();
             }
         } else {
@@ -80,14 +89,12 @@ document.addEventListener('DOMContentLoaded', () => {
             alert("Debes confirmar un identificador de usuario para guardar notas.");
             return;
         }
-        saveNotesToAPI(); // Llama a la API para guardar
+        saveNotesToFirestore(); // <--- LLAMA A LA NUEVA FUNCIÓN
     });
 
-
-    // --- Funciones ---
-
-    function loadBeachDetailsOnly() {
-        fetch('beaches.json')
+    // --- Funciones de Carga de Datos (sin cambios) ---
+    function loadBeachDetailsOnly() { /* ...código igual que antes... */
+         fetch('beaches.json')
             .then(response => {
                 if (!response.ok) throw new Error(`Error HTTP al cargar beaches.json! estado: ${response.status}`);
                 return response.json();
@@ -96,17 +103,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 beachData = allBeaches.find(b => b.id === beachId);
                 if (beachData) {
                     displayBeachDetails(beachData);
-                    // NO mostrar sección de notas aún, porque no hay userId confirmado
                 } else {
                     showError(`No se encontró ninguna playa con el ID "${beachId}".`);
                 }
             })
             .catch(handleFetchError);
     }
-
-
-    function loadBeachDetailsAndNotes() {
-        fetch('beaches.json')
+    function loadBeachDetailsAndNotes() { /* ...código igual que antes... */
+         fetch('beaches.json')
             .then(response => {
                 if (!response.ok) throw new Error(`Error HTTP al cargar beaches.json! estado: ${response.status}`);
                 return response.json();
@@ -115,10 +119,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 beachData = allBeaches.find(b => b.id === beachId);
                 if (beachData) {
                     displayBeachDetails(beachData);
-                    // Si también tenemos un userId, mostramos sección y cargamos notas
                     if (currentUserId) {
                         showNotesSection();
-                        fetchNotesFromAPI();
+                        fetchNotesFromFirestore(); // <--- LLAMA A LA NUEVA FUNCIÓN
                     }
                 } else {
                     showError(`No se encontró ninguna playa con el ID "${beachId}".`);
@@ -126,104 +129,116 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .catch(handleFetchError);
     }
-
-    function displayBeachDetails(beach) {
+    function displayBeachDetails(beach) { /* ...código igual que antes... */
         document.title = `Detalles: ${beach.name || 'Playa'}`;
         beachNameEl.textContent = beach.name || 'Nombre no disponible';
         if (beach.photoUrl) {
             beachPhotoEl.src = beach.photoUrl;
             beachPhotoEl.alt = `Foto de ${beach.name || 'la playa'}`;
-            beachPhotoEl.style.removeProperty('display'); // Mostrar imagen
+            beachPhotoEl.style.removeProperty('display');
         } else {
-            beachPhotoEl.style.display = 'none'; // Ocultar si no hay foto
+            beachPhotoEl.style.display = 'none';
         }
         beachDescEl.textContent = beach.description || '';
         const characteristics = beach.characteristics || {};
-        // ... (rellenar características como antes) ...
         beachSandEl.innerHTML = characteristics.sandType ? `<strong>Arena:</strong> ${characteristics.sandType}` : '';
-        // ... resto características
-
-        beachContentDiv.classList.remove('hidden'); // Mostrar contenido principal de la playa
-        errorPlaceholder.classList.add('hidden'); // Ocultar errores previos
+        beachConcEl.innerHTML = characteristics.concurrency ? `<strong>Concurrencia:</strong> ${characteristics.concurrency}` : '';
+        beachWaterEl.innerHTML = characteristics.waterQuality ? `<strong>Calidad del Agua:</strong> ${characteristics.waterQuality}` : '';
+        beachAmenitiesEl.innerHTML = characteristics.amenities ? `<strong>Servicios:</strong> ${characteristics.amenities}` : '';
+        beachAccessibilityEl.innerHTML = characteristics.accessibility ? `<strong>Accesibilidad:</strong> ${characteristics.accessibility}` : '';
+        if (Object.keys(characteristics).length === 0) {
+             beachCharacteristicsDiv.style.display = 'none';
+        }
+        beachContentDiv.classList.remove('hidden');
+        errorPlaceholder.classList.add('hidden');
     }
-
-    function showNotesSection() {
+    function showNotesSection() { /* ...código igual que antes... */
          notesSectionWrapper.classList.remove('hidden');
     }
 
-    /**
-     * Obtiene las notas desde la API del Backend.
-     */
-    async function fetchNotesFromAPI() {
-        if (!currentUserId || !beachId) return; // Necesitamos ambos IDs
 
-        notesStatusSpan.textContent = 'Cargando notas...';
+    // --- NUEVAS Funciones de Notas con Firestore ---
+
+    /**
+     * Obtiene las notas desde Firestore para el usuario y playa actuales.
+     */
+    async function fetchNotesFromFirestore() {
+        if (!currentUserId || !beachId) return;
+
+        notesStatusSpan.textContent = 'Cargando notas desde Firebase...';
         notesStatusSpan.style.color = 'orange';
-        userNotesTextarea.disabled = true; // Deshabilitar mientras carga
+        userNotesTextarea.disabled = true;
+        currentNoteDocId = null; // Reseteamos el ID del documento actual
 
         try {
-            // ¡IMPORTANTE! Esta es la llamada a tu backend
-            const response = await fetch(`${API_BASE_URL}/notes?userId=${encodeURIComponent(currentUserId)}&beachId=${encodeURIComponent(beachId)}`);
+            // Consultar Firestore
+            const querySnapshot = await db.collection(NOTES_COLLECTION)
+                .where("userId", "==", currentUserId)
+                .where("beachId", "==", beachId)
+                .limit(1) // Solo esperamos un documento por usuario/playa
+                .get();
 
-            if (response.ok) {
-                const data = await response.json();
-                userNotesTextarea.value = data.notes || ''; // Asume que la API devuelve { notes: "..." } o {}
-                notesStatusSpan.textContent = 'Notas cargadas.';
-                setTimeout(() => { notesStatusSpan.textContent = ''; }, 2000);
-            } else if (response.status === 404) {
-                // 404 significa que no hay notas guardadas para esta combinación
+            if (querySnapshot.empty) {
+                // No existen notas previas
                 userNotesTextarea.value = '';
-                notesStatusSpan.textContent = 'No hay notas guardadas para esta playa.';
-                 setTimeout(() => { notesStatusSpan.textContent = ''; }, 3000);
+                notesStatusSpan.textContent = 'No hay notas guardadas en Firebase para esta playa.';
+                setTimeout(() => { notesStatusSpan.textContent = ''; }, 3000);
             } else {
-                // Otro error del servidor
-                throw new Error(`Error del servidor: ${response.status} ${response.statusText}`);
+                // Notas encontradas
+                const doc = querySnapshot.docs[0];
+                currentNoteDocId = doc.id; // Guardamos el ID del documento para actualizarlo luego
+                userNotesTextarea.value = doc.data().notesText || '';
+                notesStatusSpan.textContent = 'Notas cargadas desde Firebase.';
+                setTimeout(() => { notesStatusSpan.textContent = ''; }, 2000);
             }
+
         } catch (error) {
-            console.error('Error al obtener notas de la API:', error);
+            console.error('Error al obtener notas de Firestore:', error);
             notesStatusSpan.textContent = 'Error al cargar notas.';
             notesStatusSpan.style.color = 'red';
-            // Podrías querer dejar el textarea vacío o mostrar el error de alguna forma
+            // Considera mostrar un mensaje más detallado o dejar el textarea vacío
+            userNotesTextarea.value = 'Error al cargar las notas.';
         } finally {
-             userNotesTextarea.disabled = false; // Rehabilitar siempre
+            userNotesTextarea.disabled = false; // Rehabilitar siempre
         }
     }
 
     /**
-     * Guarda las notas en la API del Backend.
+     * Guarda (crea o actualiza) las notas en Firestore.
      */
-    async function saveNotesToAPI() {
+    async function saveNotesToFirestore() {
         if (!currentUserId || !beachId) return;
 
         const notesToSave = userNotesTextarea.value;
         saveNotesButton.disabled = true;
-        notesStatusSpan.textContent = 'Guardando notas...';
+        notesStatusSpan.textContent = 'Guardando notas en Firebase...';
         notesStatusSpan.style.color = 'orange';
 
-        try {
-            // ¡IMPORTANTE! Esta es la llamada POST a tu backend
-            const response = await fetch(`${API_BASE_URL}/notes`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    userId: currentUserId,
-                    beachId: beachId,
-                    notes: notesToSave
-                }),
-            });
+        const noteData = {
+            userId: currentUserId,
+            beachId: beachId,
+            notesText: notesToSave,
+            lastUpdated: firebase.firestore.FieldValue.serverTimestamp() // Marca de tiempo del servidor
+        };
 
-            if (response.ok) {
-                notesStatusSpan.textContent = '¡Notas guardadas en la nube!';
-                notesStatusSpan.style.color = 'green';
-                setTimeout(() => { notesStatusSpan.textContent = ''; }, 2500);
+        try {
+            if (currentNoteDocId) {
+                // Si ya teníamos un ID de documento, actualizamos (update)
+                const docRef = db.collection(NOTES_COLLECTION).doc(currentNoteDocId);
+                await docRef.update(noteData);
+                notesStatusSpan.textContent = '¡Notas actualizadas en Firebase!';
             } else {
-                 const errorData = await response.text(); // Leer cuerpo del error si existe
-                 throw new Error(`Error del servidor: ${response.status} ${response.statusText}. ${errorData}`);
+                // Si no había ID, creamos un nuevo documento (add)
+                const docRef = await db.collection(NOTES_COLLECTION).add(noteData);
+                currentNoteDocId = docRef.id; // Guardamos el nuevo ID por si se vuelve a guardar
+                notesStatusSpan.textContent = '¡Notas guardadas en Firebase!';
             }
+
+            notesStatusSpan.style.color = 'green';
+            setTimeout(() => { notesStatusSpan.textContent = ''; }, 2500);
+
         } catch (error) {
-            console.error('Error al guardar notas en la API:', error);
+            console.error('Error al guardar notas en Firestore:', error);
             notesStatusSpan.textContent = 'Error al guardar notas.';
             notesStatusSpan.style.color = 'red';
         } finally {
@@ -231,17 +246,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-     function handleFetchError(error) {
+    // --- Funciones de Error (sin cambios) ---
+     function handleFetchError(error) { /* ...código igual que antes... */
         console.error('Error al cargar datos:', error);
         showError("Ocurrió un error al cargar la información. Revisa la conexión o inténtalo más tarde.");
      }
-
-    function showError(message) {
-        beachContentDiv.classList.add('hidden'); // Ocultar contenido normal
+    function showError(message) { /* ...código igual que antes... */
+        beachContentDiv.classList.add('hidden');
         errorPlaceholder.textContent = message;
-        errorPlaceholder.classList.remove('hidden'); // Mostrar mensaje de error
+        errorPlaceholder.classList.remove('hidden');
         document.title = "Error";
-        // Ocultar o deshabilitar secciones dependientes
         userIdSection.classList.add('hidden');
         notesSectionWrapper.classList.add('hidden');
     }
