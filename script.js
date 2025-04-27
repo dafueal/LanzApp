@@ -96,60 +96,49 @@ document.addEventListener('DOMContentLoaded', () => {
           }
           console.log("[DEBUG] Respuesta OK. Leyendo como texto...");
           return response.text(); // Leer la respuesta como texto plano
+      })// ... (Todo el código anterior: DOMContentLoaded, inicialización mapa, user ID, etc.) ...
+
+    // --- Cargar DATOS DE PRUEBA (test.txt) ---
+    console.log("[DEBUG] Intentando fetch de test.txt...");
+    fetch('test.txt')
+      .then(response => {
+          console.log("[DEBUG] Respuesta fetch recibida para test.txt. Estado:", response.status);
+          if (!response.ok) {
+              throw new Error(`HTTP error! estado: ${response.status} - ${response.statusText}`);
+          }
+          console.log("[DEBUG] Respuesta OK. Leyendo como texto...");
+          return response.text();
       })
       .then(textData => {
-          // Si la carga fue exitosa
-          console.log("[DEBUG] CONTENIDO DE TEST.TXT:", textData);
-          console.log("[DEBUG] ¡Fetch de test.txt tuvo ÉXITO! El problema era probablemente beaches.json.");
-          // Aquí NO añadimos marcadores porque no son datos de playa
-          // addBeachMarkers(...);
+          // --- SIMPLIFICADO AL MÁXIMO ---
+          // Solo registraremos éxito en la consola. NO tocaremos el DOM aquí.
+          console.log("****************************************");
+          console.log("[DEBUG] ÉXITO CARGANDO test.txt:", textData);
+          console.log("[DEBUG] SI VES ESTO, EL FETCH FUNCIONÓ. NO SE TOCARÁ EL MAPA DESDE AQUÍ.");
+          console.log("****************************************");
+          // --- FIN SIMPLIFICADO ---
 
-          // Podríamos dejar el mapa visible y quitar cualquier mensaje de error previo
-          const mapDiv = document.getElementById('map');
-          const errorMsgElement = mapDiv.querySelector('.error-message');
-          if (errorMsgElement) {
-              console.log("[DEBUG] Eliminando mensaje de error previo del div del mapa.");
-              mapDiv.removeChild(errorMsgElement);
-          }
+          // Código original comentado para esta prueba:
+          // console.log("[DEBUG] CONTENIDO DE TEST.TXT:", textData);
+          // console.log("[DEBUG] ¡Fetch de test.txt tuvo ÉXITO! El problema era probablemente beaches.json.");
+          // const mapDiv = document.getElementById('map');
+          // const errorMsgElement = mapDiv.querySelector('.error-message');
+          // if (errorMsgElement) {
+          //     console.log("[DEBUG] Eliminando mensaje de error previo del div del mapa.");
+          //     mapDiv.removeChild(errorMsgElement);
+          // }
       })
       .catch(error => {
-          // Si hubo un error en el fetch o al procesar la respuesta
+          // El catch sigue igual para detectar si SÍ hay error en el fetch
           console.error('[DEBUG] ERROR en el bloque .catch del fetch de test.txt:', error);
           const mapDiv = document.getElementById('map');
           if (mapDiv) {
-              // ¡Mensaje de error específico para esta prueba!
                mapDiv.innerHTML = `<p class="error-message" style="color: orange; text-align: center; padding: 20px;">ERROR DESDE EL CATCH DE TEST.TXT: ${error.message}</p>`;
           }
-          // Mostrar error también en la sección de ID
           if(userIdStatus) userIdStatus.textContent = "Error al cargar archivo de prueba.";
       });
 
-    // --- La función addBeachMarkers todavía existe pero NO se llamará en esta prueba ---
-    function addBeachMarkers(beaches) {
-        // ESTA FUNCIÓN NO DEBERÍA EJECUTARSE CON TEST.TXT
-        console.error("[DEBUG] ¡ERROR INESPERADO! Se llamó a addBeachMarkers con datos de test.txt");
-        if (!map) {
-             console.error("[DEBUG] No se puede añadir marcadores, el objeto 'map' no está definido.");
-             return;
-        }
-        if (!beaches || beaches.length === 0) {
-            console.warn("[DEBUG] No se proporcionaron datos de playas para addBeachMarkers");
-            return;
-        }
-        console.log(`[DEBUG] Añadiendo ${beaches.length} marcadores.`);
-
-        beaches.forEach(beach => {
-            // ... (resto del código de addBeachMarkers)
-            if (!beach.coordinates || beach.coordinates.length !== 2) {
-                 console.warn(`[DEBUG] Omitiendo playa "${beach.name}" por coordenadas inválidas.`);
-                 return;
-             }
-             const marker = L.marker(beach.coordinates).addTo(map);
-             marker.beachInfo = beach;
-             marker.bindTooltip(beach.name);
-             marker.on('click', function() { /* ...código de redirección... */ });
-        });
-    }
+    // ... (Función addBeachMarkers sigue existiendo pero no se llama) ...
 
     console.log("[DEBUG] Script del mapa terminado de cargar (excepto operaciones asíncronas).");
 
