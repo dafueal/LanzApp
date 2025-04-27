@@ -2,12 +2,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Configuración de Firebase (¡REEMPLAZA CON TUS VALORES!) ---
     // Obtén esto de la consola de Firebase al añadir una app web a tu proyecto
     const firebaseConfig = {
-        apiKey: "TU_API_KEY",
-        authDomain: "TU_PROJECT_ID.firebaseapp.com",
-        projectId: "TU_PROJECT_ID",
-        storageBucket: "TU_PROJECT_ID.appspot.com",
-        messagingSenderId: "TU_SENDER_ID",
-        appId: "TU_APP_ID"
+      apiKey: "AIzaSyAvtAh8dWsqLXLwtohdHJT4bm2fkH73Tg4",
+      authDomain: "lanzapp-10b86.firebaseapp.com",
+      projectId: "lanzapp-10b86",
+      storageBucket: "lanzapp-10b86.firebasestorage.app",
+      messagingSenderId: "977850801417",
+      appId: "1:977850801417:web:9c086bc6f85a6e66f447d8"
     };
 
     // --- Inicializar Firebase ---
