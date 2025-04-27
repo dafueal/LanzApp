@@ -3,47 +3,51 @@ body {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
-    /* Podríamos usar flexbox/grid para posicionar mapa y user-id si quisiéramos
-       que la sección de ID siempre estuviera visible sin scroll, pero por ahora
-       se quedará debajo del mapa que ocupa 100vh */
+    /* Considera añadir un color de fondo base si quieres */
+    /* background-color: #f8f9fa; */
 }
 
-/* Estilos para la página del mapa */
+/* ----------------------------------------- */
+/* --- Estilos para index.html (Mapa) --- */
+/* ----------------------------------------- */
+
 #map {
-    height: 100vh; /* El mapa ocupa toda la altura inicial */
-    width: 100%;
+    height: 100vh; /* ¡FUNDAMENTAL! Altura completa de la ventana */
+    width: 100%;   /* Ancho completo */
 }
 
-/* --- NUEVOS/AJUSTADOS Estilos para Sección Identificación Usuario en index.html --- */
 #user-id-section {
-    padding: 20px; /* Espaciado interno */
-    background-color: #f4f4f4; /* Un fondo ligeramente distinto */
-    border-top: 1px solid #ddd; /* Línea separadora del mapa */
-    text-align: center; /* Centrar contenido */
+    padding: 25px 20px; /* Más padding vertical */
+    background-color: #e9ecef; /* Fondo ligeramente diferente */
+    border-top: 1px solid #ced4da;
+    text-align: center;
 }
 
 #user-id-section h2 {
     margin-top: 0;
-    margin-bottom: 15px;
-    font-size: 1.2em;
-    color: #333;
+    margin-bottom: 20px; /* Más espacio */
+    font-size: 1.3em;
+    color: #343a40; /* Color de texto más oscuro */
 }
 #user-id-section label {
     margin-right: 10px;
     font-weight: bold;
-}
-
-#user-id-input {
-    padding: 8px 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-right: 10px;
-    min-width: 200px;
+    color: #495057;
     font-size: 1em;
 }
 
+#user-id-input {
+    padding: 9px 12px; /* Padding ajustado */
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    margin-right: 10px;
+    min-width: 240px; /* Un poco más ancho */
+    font-size: 1em;
+    vertical-align: middle; /* Alinear mejor */
+}
+
 #confirm-user-id-button {
-    padding: 9px 16px;
+    padding: 10px 18px; /* Botón un poco más grande */
     background-color: #28a745;
     color: white;
     border: none;
@@ -51,49 +55,215 @@ body {
     cursor: pointer;
     font-size: 1em;
     vertical-align: middle;
+    transition: background-color 0.2s ease; /* Transición suave */
 }
 #confirm-user-id-button:hover {
     background-color: #218838;
 }
 
 #user-id-status {
-    display: block; /* Para que ocupe su propia línea */
-    margin-top: 10px;
+    display: block;
+    margin-top: 15px; /* Más espacio arriba */
     font-style: italic;
     font-size: 0.9em;
-    color: #555;
-    min-height: 1.2em; /* Evitar saltos de layout */
+    color: #6c757d; /* Gris */
+    min-height: 1.2em;
 }
 
-
-/* Estilos del Tooltip de Leaflet (sin cambios) */
+/* Estilos del Tooltip de Leaflet */
 .leaflet-tooltip {
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.75); /* Un poco más opaco */
     color: white;
     border: none;
-    box-shadow: none;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3); /* Sombra sutil */
     border-radius: 3px;
-    padding: 3px 6px;
+    padding: 4px 8px; /* Un poco más de padding */
     font-size: 0.9em;
 }
 .leaflet-tooltip-top:before,
 .leaflet-tooltip-bottom:before,
 .leaflet-tooltip-left:before,
 .leaflet-tooltip-right:before {
-    border: none;
+    border: none; /* Sin flecha predeterminada */
 }
 
+
+/* ----------------------------------------- */
 /* --- Estilos para beach.html (Detalles) --- */
-/* (Los estilos para .beach-detail-container, .back-link, etc. permanecen igual) */
-.beach-detail-container { /* ... */ }
-.beach-detail-container img { /* ... */ }
-/* ... etc ... */
+/* ----------------------------------------- */
+
+.beach-detail-container {
+    max-width: 850px; /* Un poco más ancho */
+    margin: 30px auto; /* Más margen superior/inferior */
+    padding: 25px 30px; /* Más padding */
+    border: 1px solid #dee2e6; /* Borde más claro */
+    background-color: #fff; /* Fondo blanco explícito */
+    box-shadow: 0 3px 8px rgba(0,0,0,0.08); /* Sombra más suave */
+    border-radius: 6px;
+}
+
+.beach-detail-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px; /* Bordes redondeados */
+    margin-bottom: 20px;
+    display: block;
+}
+
+.beach-detail-container h1 { /* Título de la playa */
+    margin-top: 0;
+    color: #212529; /* Casi negro */
+    font-size: 2em;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee; /* Línea separadora */
+    padding-bottom: 10px;
+}
+
+.beach-detail-container .description {
+    line-height: 1.7; /* Más interlineado */
+    color: #495057; /* Gris oscuro */
+    margin-bottom: 30px;
+    font-size: 1.05em; /* Un poco más grande */
+}
+
+.beach-detail-container .characteristics h2 {
+    font-size: 1.4em;
+    color: #343a40;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 8px;
+    margin-top: 30px;
+    margin-bottom: 18px;
+}
+
+.beach-detail-container .characteristics p {
+    margin: 10px 0;
+    font-size: 1em;
+    color: #495057;
+    line-height: 1.5;
+}
+.beach-detail-container .characteristics strong {
+    color: #212529; /* Más oscuro */
+    margin-right: 8px;
+    min-width: 120px; /* Ancho mínimo para alinear un poco */
+    display: inline-block;
+}
+
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 25px; /* Más espacio */
+    color: #007bff;
+    text-decoration: none;
+    font-size: 1em;
+}
+.back-link:hover {
+    text-decoration: underline;
+}
 
 /* --- Estilos para Sección Notas Usuario en beach.html --- */
-/* (Los estilos para .user-notes-section, #user-notes, etc. permanecen igual) */
-.user-notes-section { /* ... */ }
-/* ... etc ... */
+.user-notes-section {
+    margin-top: 35px;
+    padding-top: 30px;
+    border-top: 1px solid #dee2e6;
+}
+
+.user-notes-section h2 {
+    font-size: 1.4em; /* Consistente con características */
+    color: #343a40;
+    margin-bottom: 20px;
+}
+.user-notes-section h2 span { /* ID de usuario */
+    font-weight: normal;
+    color: #007bff;
+    font-size: 0.9em;
+    margin-left: 5px;
+}
+
+.user-notes-section label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #495057;
+    font-size: 1em;
+}
+
+#user-notes {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 1em;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    min-height: 120px; /* Altura mínima */
+}
+
+#save-notes-button {
+    padding: 10px 20px; /* Botón un poco más grande */
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.2s ease;
+}
+
+#save-notes-button:hover {
+    background-color: #0056b3;
+}
+#save-notes-button:disabled {
+    background-color: #adb5bd; /* Gris claro */
+    cursor: not-allowed;
+}
+
+#notes-status {
+    margin-left: 15px;
+    font-style: italic;
+    font-size: 0.9em;
+    vertical-align: middle; /* Alinear con el botón */
+}
+#notes-status[style*="color: red"] { /* Color para errores */
+    font-weight: bold;
+    color: #dc3545 !important; /* Asegurar color rojo */
+}
+#notes-status[style*="color: green"] { /* Color para éxito */
+     color: #28a745 !important;
+}
+#notes-status[style*="color: orange"] { /* Color para "cargando" */
+     color: #fd7e14 !important;
+}
+
+
+#notes-disabled-message {
+    color: #6c757d;
+    margin-top: 15px;
+    font-style: italic;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border: 1px dashed #ced4da;
+    border-radius: 4px;
+}
+#notes-disabled-message a { /* Estilo del enlace dentro del mensaje */
+    color: #007bff;
+    font-weight: bold;
+}
 
 /* --- Clases Utilitarias --- */
-.hidden { display: none !important; }
-.error-message { /* ... */ }
+.hidden {
+    display: none !important;
+}
+
+.error-message {
+    color: #721c24; /* Rojo oscuro */
+    font-weight: bold;
+    text-align: center;
+    padding: 20px 15px;
+    border: 1px solid #f5c6cb;
+    background-color: #f8d7da;
+    border-radius: 5px;
+    margin: 20px 0; /* Margen arriba/abajo */
+}
