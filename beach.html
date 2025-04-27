@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <style>
         .hidden { display: none; }
-        #user-id-section label, #user-id-section input, #user-id-section button { margin-bottom: 10px;}
+        /* Ya no se necesita el estilo específico para user-id-section aquí */
     </style>
 </head>
 <body>
@@ -15,15 +15,9 @@
     <div class="beach-detail-container">
         <a href="index.html" class="back-link">← Volver al Mapa</a>
 
-        <div id="user-id-section">
-            <h2>Identificación de Usuario</h2>
-            <label for="user-id-input">Introduce tu identificador único:</label>
-            <input type="text" id="user-id-input" placeholder="Ej: miUsuario123">
-            <button id="confirm-user-id-button">Usar este Identificador</button>
-            <p id="user-id-status" style="font-style: italic;"></p>
-        </div>
+        <!-- SECCIÓN DE IDENTIFICADOR ELIMINADA DE AQUÍ -->
 
-        <div id="beach-content" class="hidden">
+        <div id="beach-content" class="hidden"> <!-- Sigue oculto hasta cargar datos -->
             <h1 id="beach-detail-name">Cargando...</h1>
             <img id="beach-detail-photo" src="images/placeholder.jpg" alt="Foto de la playa" style="display: none;">
             <p id="beach-detail-description" class="description"></p>
@@ -36,24 +30,25 @@
                 <p id="beach-detail-accessibility"></p>
             </div>
 
-            <div id="notes-section-wrapper" class="user-notes-section hidden">
-                <h2>Mis Notas Personales (<span id="current-user-id" style="font-weight:normal;"></span>)</h2>
-                <label for="user-notes">Escribe o edita tus notas sobre esta playa:</label>
-                <textarea id="user-notes" rows="6" placeholder="Tus notas aparecerán aquí..."></textarea>
-                <button id="save-notes-button">Guardar Notas en Firebase</button> <!-- Texto botón actualizado -->
-                <span id="notes-status" style="margin-left: 10px; font-style: italic; font-size: 0.9em;"></span>
+            <div id="notes-section-wrapper" class="user-notes-section hidden"> <!-- Sigue oculto hasta tener ID -->
+                <!-- Mostraremos el ID actual leído de sessionStorage -->
+                <h2>Mis Notas Personales (<span id="current-user-id" style="font-weight:normal;">Usuario no identificado</span>)</h2>
+                <div id="notes-content"> <!-- Div para mostrar/ocultar notas -->
+                    <label for="user-notes">Escribe o edita tus notas sobre esta playa:</label>
+                    <textarea id="user-notes" rows="6" placeholder="Introduce un ID en la página del mapa para activar las notas..."></textarea>
+                    <button id="save-notes-button" disabled>Guardar Notas en Firebase</button> <!-- Deshabilitado por defecto -->
+                    <span id="notes-status" style="margin-left: 10px; font-style: italic; font-size: 0.9em;"></span>
+                </div>
+                 <p id="notes-disabled-message" class="hidden" style="color: #777; margin-top: 15px;">Debes <a href="index.html">volver al mapa</a> e introducir un identificador de usuario para poder guardar notas.</p>
             </div>
         </div>
 
         <div id="error-placeholder" class="error-message hidden"></div>
     </div>
 
-    <!-- === SDKs de Firebase === -->
-    <!-- Asegúrate de usar las versiones más recientes o las recomendadas por Firebase -->
+    <!-- SDKs de Firebase (sin cambios) -->
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
-    <!-- Si usaras Authentication: <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script> -->
-
 
     <!-- Script específico para esta página -->
     <script src="beach-detail.js"></script>
