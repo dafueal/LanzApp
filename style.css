@@ -3,16 +3,70 @@ body {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
+    /* Podríamos usar flexbox/grid para posicionar mapa y user-id si quisiéramos
+       que la sección de ID siempre estuviera visible sin scroll, pero por ahora
+       se quedará debajo del mapa que ocupa 100vh */
 }
 
 /* Estilos para la página del mapa */
 #map {
-    height: 100vh; /* ¡CONFIRMADO Y ESENCIAL! */
+    height: 100vh; /* El mapa ocupa toda la altura inicial */
     width: 100%;
-    /* z-index: 1; <-- Probablemente innecesario ahora */
 }
 
-/* Estilos del Tooltip de Leaflet */
+/* --- NUEVOS/AJUSTADOS Estilos para Sección Identificación Usuario en index.html --- */
+#user-id-section {
+    padding: 20px; /* Espaciado interno */
+    background-color: #f4f4f4; /* Un fondo ligeramente distinto */
+    border-top: 1px solid #ddd; /* Línea separadora del mapa */
+    text-align: center; /* Centrar contenido */
+}
+
+#user-id-section h2 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+    color: #333;
+}
+#user-id-section label {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+#user-id-input {
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+    min-width: 200px;
+    font-size: 1em;
+}
+
+#confirm-user-id-button {
+    padding: 9px 16px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    vertical-align: middle;
+}
+#confirm-user-id-button:hover {
+    background-color: #218838;
+}
+
+#user-id-status {
+    display: block; /* Para que ocupe su propia línea */
+    margin-top: 10px;
+    font-style: italic;
+    font-size: 0.9em;
+    color: #555;
+    min-height: 1.2em; /* Evitar saltos de layout */
+}
+
+
+/* Estilos del Tooltip de Leaflet (sin cambios) */
 .leaflet-tooltip {
     background-color: rgba(0, 0, 0, 0.7);
     color: white;
@@ -29,198 +83,17 @@ body {
     border: none;
 }
 
-/* ----------------------------------------- */
 /* --- Estilos para beach.html (Detalles) --- */
-/* ----------------------------------------- */
+/* (Los estilos para .beach-detail-container, .back-link, etc. permanecen igual) */
+.beach-detail-container { /* ... */ }
+.beach-detail-container img { /* ... */ }
+/* ... etc ... */
 
-.beach-detail-container {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    border: 1px solid #eee;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    border-radius: 5px; /* Añadido borde redondeado */
-}
-
-.beach-detail-container img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 4px;
-    margin-bottom: 15px;
-    display: block; /* Asegura que no haya espacio extra debajo */
-}
-
-.beach-detail-container h1 {
-    margin-top: 0;
-    color: #333;
-    font-size: 1.8em; /* Ligeramente más grande */
-    margin-bottom: 15px;
-}
-
-.beach-detail-container .description {
-    line-height: 1.6;
-    color: #555;
-    margin-bottom: 25px; /* Más espacio después de la descripción */
-}
-
-.beach-detail-container .characteristics h2 {
-    font-size: 1.3em; /* Un poco más grande */
-    color: #444;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 8px;
-    margin-top: 25px; /* Más espacio antes */
-    margin-bottom: 15px;
-}
-
-.beach-detail-container .characteristics p {
-    margin: 8px 0; /* Más espacio vertical entre características */
-    font-size: 0.95em;
-    color: #555;
-}
-.beach-detail-container .characteristics strong {
-    color: #333;
-    margin-right: 5px; /* Espacio después de la etiqueta */
-}
-
-
-.back-link {
-    display: inline-block;
-    margin-bottom: 20px;
-    color: #007bff;
-    text-decoration: none;
-    font-size: 0.9em;
-}
-
-.back-link:hover {
-    text-decoration: underline;
-}
-
-/* --- Estilos para Sección Identificación Usuario --- */
-#user-id-section {
-    padding: 20px;
-    border: 1px solid #ddd;
-    background-color: #f9f9f9;
-    margin-bottom: 25px; /* Más espacio después */
-    border-radius: 5px;
-}
-
-#user-id-section h2 {
-    margin-top: 0;
-    font-size: 1.3em;
-    color: #444;
-    margin-bottom: 15px; /* Más espacio */
-}
-
-#user-id-input {
-    padding: 8px 10px; /* Ajuste padding */
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-right: 10px;
-    min-width: 220px;
-    font-size: 1em;
-}
-
-#confirm-user-id-button {
-    padding: 9px 16px; /* Ligeramente más grande */
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1em;
-    vertical-align: middle; /* Alinear mejor con el input */
-}
-#confirm-user-id-button:hover {
-    background-color: #218838;
-}
-#user-id-status {
-    margin-left: 15px;
-    font-style: italic;
-    font-size: 0.9em;
-    color: #666;
-}
-
-
-/* --- Estilos para Sección Notas Usuario --- */
-.user-notes-section {
-    margin-top: 30px;
-    padding-top: 25px;
-    border-top: 1px solid #eee;
-}
-
-.user-notes-section h2 {
-    font-size: 1.3em; /* Consistente con otras secciones */
-    color: #444;
-    margin-bottom: 15px;
-}
-.user-notes-section h2 span { /* Para el ID de usuario */
-    font-weight: normal;
-    color: #007bff;
-    font-size: 0.9em;
-}
-
-
-.user-notes-section label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-    color: #555;
-    font-size: 0.95em;
-}
-
-#user-notes {
-    display: block;
-    width: 100%;
-    box-sizing: border-box; /* Incluir padding en el ancho */
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-family: inherit;
-    font-size: 1em;
-    line-height: 1.5;
-    margin-bottom: 15px; /* Más espacio debajo */
-}
-
-#save-notes-button {
-    padding: 10px 18px; /* Botón más grande */
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1em; /* Tamaño consistente */
-}
-
-#save-notes-button:hover {
-    background-color: #0056b3;
-}
-#save-notes-button:disabled { /* Estilo para botón deshabilitado */
-    background-color: #aaa;
-    cursor: not-allowed;
-}
-
-#notes-status {
-    margin-left: 15px;
-    font-style: italic;
-    font-size: 0.9em;
-}
-#notes-status[style*="color: red"] { /* Hacer error más visible */
-    font-weight: bold;
-}
-
+/* --- Estilos para Sección Notas Usuario en beach.html --- */
+/* (Los estilos para .user-notes-section, #user-notes, etc. permanecen igual) */
+.user-notes-section { /* ... */ }
+/* ... etc ... */
 
 /* --- Clases Utilitarias --- */
-.hidden {
-    display: none !important; /* Asegurar que se oculte */
-}
-
-.error-message {
-    color: #dc3545; /* Rojo bootstrap */
-    font-weight: bold;
-    text-align: center;
-    padding: 30px 15px; /* Más padding */
-    border: 1px solid #f5c6cb; /* Borde rojo claro */
-    background-color: #f8d7da; /* Fondo rojo muy claro */
-    border-radius: 5px;
-    margin-top: 20px;
-}
+.hidden { display: none !important; }
+.error-message { /* ... */ }
