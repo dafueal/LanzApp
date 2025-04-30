@@ -1,3 +1,5 @@
+
+
 document.addEventListener('DOMContentLoaded', () => {
     // --- Configuración de Firebase (¡¡REEMPLAZA CON TUS VALORES!!) ---
     const firebaseConfig = {
@@ -9,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
       appId: "1:977850801417:web:9c086bc6f85a6e66f447d8"
     };
 
-    // --- Variables Globales y Referencias a Elementos ---
+    // --- Variables Globales y Referencias (Sin cambios) ---
     let db;
     const NOTES_COLLECTION = 'userBeachNotes';
     const params = new URLSearchParams(window.location.search);
@@ -18,7 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let beachData = null;
     let currentNoteDocId = null;
 
-    // ... (obtener referencias a elementos: beachContentDiv, beachNameEl, etc. como antes) ...
     const beachContentDiv = document.getElementById('beach-content');
     const beachNameEl = document.getElementById('beach-detail-name');
     const beachPhotoEl = document.getElementById('beach-detail-photo');
@@ -38,8 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const notesStatusSpan = document.getElementById('notes-status');
     const notesDisabledMessage = document.getElementById('notes-disabled-message');
 
-
-    // --- Inicialización Principal ---
+    // --- Inicialización Principal (Sin cambios) ---
     function initializeApp() {
         console.log("[DEBUG] Iniciando beach-detail.js...");
         if (!beachId) {
@@ -48,30 +48,27 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         console.log(`[DEBUG] Beach ID from URL: ${beachId}`);
 
-        // Inicializar Firebase
         try {
             if (typeof firebase === 'undefined' || !firebase.initializeApp) {
                  throw new Error("SDK de Firebase no cargado correctamente.");
             }
-            // Evitar inicializar múltiples veces si ya existe
             if (!firebase.apps.length) {
                  firebase.initializeApp(firebaseConfig);
                  console.log("[DEBUG] Firebase inicializado.");
             } else {
                  console.log("[DEBUG] Firebase ya estaba inicializado.");
             }
-            db = firebase.firestore(); // Asignar instancia Firestore
+            db = firebase.firestore();
             if(!db) throw new Error("Instancia de Firestore (db) no se pudo obtener.");
             console.log("[DEBUG] Instancia Firestore asignada.");
         } catch (e) {
             console.error("[DEBUG] Error inicializando Firebase:", e);
             showError("No se pudo conectar con el servicio de notas (Firebase). Verifica la configuración y las credenciales.");
             disableNotesCompletely("Firebase no disponible.");
-            loadBeachDetailsOnly(); // Intentar cargar playa aunque fallen notas
+            loadBeachDetailsOnly();
             return;
         }
 
-        // Obtener User ID de sessionStorage
         currentUserId = sessionStorage.getItem('beachExplorerUserId');
         console.log(`[DEBUG] User ID from Session Storage: ${currentUserId}`);
 
@@ -85,26 +82,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- Lógica de Activación/Desactivación de Notas (Sin cambios) ---
-    function activateNotesSection() { console.log("[DEBUG] Activando sección de notas."); /* ... */ }
-    function deactivateNotesSection() { console.log("[DEBUG] Desactivando sección de notas (no hay userId)."); /* ... */ }
-    function disableNotesCompletely(reason = "...") { console.log(`[DEBUG] Deshabilitando notas completamente: ${reason}`); /* ... */ }
+    function activateNotesSection() { /* ... */ }
+    function deactivateNotesSection() { /* ... */ }
+    function disableNotesCompletely(reason = "...") { /* ... */ }
 
-
-    // --- Carga de Datos de Playa (desde JSON) ---
+    // --- Carga de Datos de Playa (Sin cambios) ---
      function loadBeachDetailsOnly() {
          console.log("[DEBUG] Cargando solo detalles de la playa...");
-         // Intenta con ruta absoluta como prueba
-         fetch('/LanzApp/beaches.json')
+         fetch('/LanzApp/beaches.json') // Usando ruta absoluta
             .then(response => {
-                console.log("[DEBUG] Respuesta fetch beaches.json (details only):", response.status);
                 if (!response.ok) throw new Error(`Error HTTP cargando beaches.json: ${response.status}`);
                 return response.json();
             })
             .then(allBeaches => {
-                console.log("[DEBUG] Datos JSON cargados (details only). Buscando playa...");
-                console.log("[DEBUG] Buscando ID:", beachId, "en", allBeaches);
                 beachData = allBeaches.find(b => b.id === beachId);
-                console.log("[DEBUG] Playa encontrada (details only):", beachData);
                 if (beachData) {
                     displayBeachDetails(beachData);
                 } else {
@@ -115,25 +106,17 @@ document.addEventListener('DOMContentLoaded', () => {
      }
      function loadBeachDetailsAndNotes() {
          console.log("[DEBUG] Cargando detalles de playa y preparando para notas...");
-         // Intenta con ruta absoluta como prueba
-         fetch('/LanzApp/beaches.json')
+          fetch('/LanzApp/beaches.json') // Usando ruta absoluta
             .then(response => {
-                 console.log("[DEBUG] Respuesta fetch beaches.json (details+notes):", response.status);
                 if (!response.ok) throw new Error(`Error HTTP cargando beaches.json: ${response.status}`);
                 return response.json();
             })
             .then(allBeaches => {
-                console.log("[DEBUG] Datos JSON cargados (details+notes). Buscando playa...");
-                 console.log("[DEBUG] Buscando ID:", beachId, "en", allBeaches);
                 beachData = allBeaches.find(b => b.id === beachId);
-                 console.log("[DEBUG] Playa encontrada (details+notes):", beachData);
                 if (beachData) {
                     displayBeachDetails(beachData);
                     if (currentUserId && db) {
-                         console.log("[DEBUG] Hay userId y db, procediendo a buscar notas en Firestore...");
                          fetchNotesFromFirestore();
-                    } else {
-                         console.log("[DEBUG] No se buscarán notas (falta userId o db no está lista).");
                     }
                 } else {
                      showError(`No se encontró ninguna playa con el ID "${beachId}" en los datos cargados.`);
@@ -145,37 +128,75 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Mostrar Detalles de Playa en el DOM ---
     function displayBeachDetails(beach) {
          console.log(`[DEBUG] Mostrando detalles para: ${beach.name}`);
-         // ... (resto del código para rellenar nombre, foto, etc. IGUAL QUE ANTES) ...
          document.title = `Detalles: ${beach.name || 'Playa'}`;
-         beachNameEl.textContent = beach.name || 'Nombre no disponible';
-         // ... etc ...
 
-         // Asegúrate que el contenedor se muestra
-         if(beachContentDiv) {
-             beachContentDiv.classList.remove('hidden');
-             console.log("[DEBUG] Contenedor #beach-content hecho visible.");
-         } else {
-              console.error("[DEBUG] El contenedor #beach-content no se encontró para hacerlo visible.");
-         }
+         // Nombre
+         if (beachNameEl) beachNameEl.textContent = beach.name || 'Nombre no disponible';
+         else console.error("Elemento #beach-detail-name no encontrado");
+
+         // Foto
+         if (beachPhotoEl) {
+             if (beach.photoUrl) {
+                 beachPhotoEl.src = beach.photoUrl;
+                 beachPhotoEl.alt = `Foto de ${beach.name || 'la playa'}`;
+                 beachPhotoEl.style.display = 'block';
+             } else {
+                 beachPhotoEl.style.display = 'none';
+             }
+         } else console.error("Elemento #beach-detail-photo no encontrado");
+
+         // Descripción
+         if (beachDescEl) beachDescEl.textContent = beach.description || 'Descripción no disponible.';
+         else console.error("Elemento #beach-detail-description no encontrado");
+
+         // Características
+         const characteristics = beach.characteristics || {};
+         console.log("[DEBUG] Asignando Características:", characteristics);
+
+         // === CORRECCIÓN AQUÍ ===
+         if (beachSandEl) beachSandEl.innerHTML = characteristics.sandType ? `<strong>Arena:</strong> ${characteristics.sandType}` : '';
+         else console.error("Elemento #beach-detail-sand no encontrado");
+
+         if (beachConcEl) beachConcEl.innerHTML = characteristics.concurrency ? `<strong>Concurrencia:</strong> ${characteristics.concurrency}` : '';
+         else console.error("Elemento #beach-detail-concurrency no encontrado");
+
+         if (beachWaterEl) beachWaterEl.innerHTML = characteristics.waterQuality ? `<strong>Calidad del Agua:</strong> ${characteristics.waterQuality}` : '';
+         else console.error("Elemento #beach-detail-water no encontrado");
+
+         if (beachAmenitiesEl) beachAmenitiesEl.innerHTML = characteristics.amenities ? `<strong>Servicios:</strong> ${characteristics.amenities}` : '';
+         else console.error("Elemento #beach-detail-amenities no encontrado");
+
+         if (beachAccessibilityEl) beachAccessibilityEl.innerHTML = characteristics.accessibility ? `<strong>Accesibilidad:</strong> ${characteristics.accessibility}` : '';
+         else console.error("Elemento #beach-detail-accessibility no encontrado");
+         // === FIN CORRECCIÓN ===
+
+
+         // Ocultar/Mostrar sección características
+         if (beachCharacteristicsDiv) {
+            if (Object.values(characteristics).every(val => !val)) {
+                beachCharacteristicsDiv.style.display = 'none';
+                console.log("[DEBUG] Ocultando sección de características (vacía).");
+            } else {
+                 beachCharacteristicsDiv.style.display = 'block';
+                 console.log("[DEBUG] Mostrando sección de características.");
+            }
+         } else console.error("Elemento #beach-detail-characteristics no encontrado");
+
+
+         // Mostrar contenido principal y ocultar errores
+         if(beachContentDiv) beachContentDiv.classList.remove('hidden');
+         else console.error("Elemento #beach-content no encontrado");
+
          if(errorPlaceholder) errorPlaceholder.classList.add('hidden');
     }
 
-
-    // --- Funciones de Notas con Firestore (Sin cambios en la lógica interna) ---
-    async function fetchNotesFromFirestore() { /* ... código igual que antes ... */ }
-    async function saveNotesToFirestore() { /* ... código igual que antes ... */ }
-
+    // --- Funciones de Notas con Firestore (Sin cambios) ---
+    async function fetchNotesFromFirestore() { /* ... */ }
+    async function saveNotesToFirestore() { /* ... */ }
 
     // --- Funciones de Error (Sin cambios) ---
-     function handleFetchError(error) {
-         console.error('[DEBUG] Error en handleFetchError (fetch beaches.json):', error);
-         showError(`Ocurrió un error al cargar la información de la playa: ${error.message}`);
-         disableNotesCompletely("Datos de playa no disponibles.");
-      }
-     function showError(message) {
-         console.error("[DEBUG] Mostrando Error en página:", message);
-         // ... (código igual que antes para mostrar error) ...
-     }
+     function handleFetchError(error) { /* ... */ }
+     function showError(message) { /* ... */ }
 
      // --- Event Listener para Guardar Notas (Sin cambios) ---
     if (saveNotesButton) {
