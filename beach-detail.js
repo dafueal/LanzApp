@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Carga de Datos de Playa (Sin cambios) ---
      function loadBeachDetailsOnly() {
          console.log("[DEBUG] Cargando solo detalles de la playa...");
-         fetch('/LanzApp/beaches.json') // Usando ruta absoluta
+         fetch('beaches.json') // Usando ruta absoluta
             .then(response => {
                 if (!response.ok) throw new Error(`Error HTTP cargando beaches.json: ${response.status}`);
                 return response.json();
@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
      }
      function loadBeachDetailsAndNotes() {
          console.log("[DEBUG] Cargando detalles de playa y preparando para notas...");
-          fetch('/LanzApp/beaches.json') // Usando ruta absoluta
+          fetch('beaches.json') // Usando ruta absoluta
             .then(response => {
                 if (!response.ok) throw new Error(`Error HTTP cargando beaches.json: ${response.status}`);
                 return response.json();
