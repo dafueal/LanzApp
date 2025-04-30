@@ -3,8 +3,6 @@ body {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
-    /* Considera añadir un color de fondo base si quieres */
-    /* background-color: #f8f9fa; */
 }
 
 /* ----------------------------------------- */
@@ -17,17 +15,17 @@ body {
 }
 
 #user-id-section {
-    padding: 25px 20px; /* Más padding vertical */
-    background-color: #e9ecef; /* Fondo ligeramente diferente */
+    padding: 25px 20px;
+    background-color: #e9ecef;
     border-top: 1px solid #ced4da;
     text-align: center;
 }
 
 #user-id-section h2 {
     margin-top: 0;
-    margin-bottom: 20px; /* Más espacio */
+    margin-bottom: 20px;
     font-size: 1.3em;
-    color: #343a40; /* Color de texto más oscuro */
+    color: #343a40;
 }
 #user-id-section label {
     margin-right: 10px;
@@ -37,17 +35,17 @@ body {
 }
 
 #user-id-input {
-    padding: 9px 12px; /* Padding ajustado */
+    padding: 9px 12px;
     border: 1px solid #ced4da;
     border-radius: 4px;
     margin-right: 10px;
-    min-width: 240px; /* Un poco más ancho */
+    min-width: 240px;
     font-size: 1em;
-    vertical-align: middle; /* Alinear mejor */
+    vertical-align: middle;
 }
 
 #confirm-user-id-button {
-    padding: 10px 18px; /* Botón un poco más grande */
+    padding: 10px 18px;
     background-color: #28a745;
     color: white;
     border: none;
@@ -55,7 +53,7 @@ body {
     cursor: pointer;
     font-size: 1em;
     vertical-align: middle;
-    transition: background-color 0.2s ease; /* Transición suave */
+    transition: background-color 0.2s ease;
 }
 #confirm-user-id-button:hover {
     background-color: #218838;
@@ -63,28 +61,28 @@ body {
 
 #user-id-status {
     display: block;
-    margin-top: 15px; /* Más espacio arriba */
+    margin-top: 15px;
     font-style: italic;
     font-size: 0.9em;
-    color: #6c757d; /* Gris */
+    color: #6c757d;
     min-height: 1.2em;
 }
 
 /* Estilos del Tooltip de Leaflet */
 .leaflet-tooltip {
-    background-color: rgba(0, 0, 0, 0.75); /* Un poco más opaco */
+    background-color: rgba(0, 0, 0, 0.75);
     color: white;
     border: none;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.3); /* Sombra sutil */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
     border-radius: 3px;
-    padding: 4px 8px; /* Un poco más de padding */
+    padding: 4px 8px;
     font-size: 0.9em;
 }
 .leaflet-tooltip-top:before,
 .leaflet-tooltip-bottom:before,
 .leaflet-tooltip-left:before,
 .leaflet-tooltip-right:before {
-    border: none; /* Sin flecha predeterminada */
+    border: none;
 }
 
 
@@ -93,37 +91,37 @@ body {
 /* ----------------------------------------- */
 
 .beach-detail-container {
-    max-width: 850px; /* Un poco más ancho */
-    margin: 30px auto; /* Más margen superior/inferior */
-    padding: 25px 30px; /* Más padding */
-    border: 1px solid #dee2e6; /* Borde más claro */
-    background-color: #fff; /* Fondo blanco explícito */
-    box-shadow: 0 3px 8px rgba(0,0,0,0.08); /* Sombra más suave */
+    max-width: 850px;
+    margin: 30px auto;
+    padding: 25px 30px;
+    border: 1px solid #dee2e6;
+    background-color: #fff;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.08);
     border-radius: 6px;
 }
 
 .beach-detail-container img {
     max-width: 100%;
     height: auto;
-    border-radius: 5px; /* Bordes redondeados */
+    border-radius: 5px;
     margin-bottom: 20px;
     display: block;
 }
 
-.beach-detail-container h1 { /* Título de la playa */
+.beach-detail-container h1 {
     margin-top: 0;
-    color: #212529; /* Casi negro */
+    color: #212529;
     font-size: 2em;
     margin-bottom: 15px;
-    border-bottom: 1px solid #eee; /* Línea separadora */
+    border-bottom: 1px solid #eee;
     padding-bottom: 10px;
 }
 
 .beach-detail-container .description {
-    line-height: 1.7; /* Más interlineado */
-    color: #495057; /* Gris oscuro */
+    line-height: 1.7;
+    color: #495057;
     margin-bottom: 30px;
-    font-size: 1.05em; /* Un poco más grande */
+    font-size: 1.05em;
 }
 
 .beach-detail-container .characteristics h2 {
@@ -142,16 +140,16 @@ body {
     line-height: 1.5;
 }
 .beach-detail-container .characteristics strong {
-    color: #212529; /* Más oscuro */
+    color: #212529;
     margin-right: 8px;
-    min-width: 120px; /* Ancho mínimo para alinear un poco */
+    min-width: 120px;
     display: inline-block;
 }
 
 
 .back-link {
     display: inline-block;
-    margin-bottom: 25px; /* Más espacio */
+    margin-bottom: 25px;
     color: #007bff;
     text-decoration: none;
     font-size: 1em;
@@ -168,11 +166,11 @@ body {
 }
 
 .user-notes-section h2 {
-    font-size: 1.4em; /* Consistente con características */
+    font-size: 1.4em;
     color: #343a40;
     margin-bottom: 20px;
 }
-.user-notes-section h2 span { /* ID de usuario */
+.user-notes-section h2 span {
     font-weight: normal;
     color: #007bff;
     font-size: 0.9em;
@@ -198,11 +196,11 @@ body {
     font-size: 1em;
     line-height: 1.6;
     margin-bottom: 15px;
-    min-height: 120px; /* Altura mínima */
+    min-height: 120px;
 }
 
 #save-notes-button {
-    padding: 10px 20px; /* Botón un poco más grande */
+    padding: 10px 20px;
     background-color: #007bff;
     color: white;
     border: none;
@@ -216,7 +214,7 @@ body {
     background-color: #0056b3;
 }
 #save-notes-button:disabled {
-    background-color: #adb5bd; /* Gris claro */
+    background-color: #adb5bd;
     cursor: not-allowed;
 }
 
@@ -224,16 +222,16 @@ body {
     margin-left: 15px;
     font-style: italic;
     font-size: 0.9em;
-    vertical-align: middle; /* Alinear con el botón */
+    vertical-align: middle;
 }
-#notes-status[style*="color: red"] { /* Color para errores */
+#notes-status[style*="color: red"] {
     font-weight: bold;
-    color: #dc3545 !important; /* Asegurar color rojo */
+    color: #dc3545 !important;
 }
-#notes-status[style*="color: green"] { /* Color para éxito */
+#notes-status[style*="color: green"] {
      color: #28a745 !important;
 }
-#notes-status[style*="color: orange"] { /* Color para "cargando" */
+#notes-status[style*="color: orange"] {
      color: #fd7e14 !important;
 }
 
@@ -247,7 +245,7 @@ body {
     border: 1px dashed #ced4da;
     border-radius: 4px;
 }
-#notes-disabled-message a { /* Estilo del enlace dentro del mensaje */
+#notes-disabled-message a {
     color: #007bff;
     font-weight: bold;
 }
@@ -257,13 +255,13 @@ body {
     display: none !important;
 }
 
-.error-message {
-    color: #721c24; /* Rojo oscuro */
+.error-message { /* Para mostrar errores genéricos si es necesario */
+    color: #721c24;
     font-weight: bold;
     text-align: center;
     padding: 20px 15px;
     border: 1px solid #f5c6cb;
     background-color: #f8d7da;
     border-radius: 5px;
-    margin: 20px 0; /* Margen arriba/abajo */
+    margin: 20px 0;
 }
