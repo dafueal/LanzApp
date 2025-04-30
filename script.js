@@ -1,21 +1,24 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log("DOM Cargado. Iniciando script del mapa...");
 
-    // --- Elementos de ID de Usuario (NUEVO en este script) ---
+    // --- Elementos de ID de Usuario ---
     const userIdInput = document.getElementById('user-id-input');
     const confirmUserIdButton = document.getElementById('confirm-user-id-button');
     const userIdStatus = document.getElementById('user-id-status');
-    let currentUserId = null; // Variable local para el ID
+    let currentUserId = null;
 
     // --- Inicialización del Mapa ---
+    let map; // Variable para el mapa
     const lanzaroteCenter = [29.0469, -13.589];
     console.log("Intentando inicializar mapa en #map...");
     try {
-        const map = L.map('map').setView(lanzaroteCenter, 10);
-        console.log("Objeto Mapa Leaflet creado:", map);
+        const mapContainer = document.getElementById('map');
+        if (!mapContainer) throw new Error("Contenedor #map no encontrado.");
+        if (typeof L === 'undefined' || !L.map) throw new Error("Leaflet (L) no cargado.");
 
-        // Añadir Capa de Teselas (OpenStreetMap)
-        console.log("Intentando añadir capa de teselas...");
+        map = L.map('map').setView(lanzaroteCenter, 10);
+        console.log("Mapa Leaflet creado.");
+
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 18,
             attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -23,42 +26,43 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log("Capa de teselas añadida.");
 
     } catch (e) {
-         console.error("¡ERROR durante la inicialización básica del mapa!", e);
-         // Podrías mostrar un error en la sección de ID de usuario si el mapa falla
-         if(userIdStatus) userIdStatus.textContent = "Error al inicializar el mapa.";
+         console.error("¡ERROR FATAL durante la inicialización básica del mapa!", e);
+         const mapDivError = document.getElementById('map');
+         if (mapDivError) mapDivError.innerHTML = `<p class="error-message">ERROR AL INICIALIZAR EL MAPA: ${e.message}</p>`;
+         if (userIdStatus) userIdStatus.textContent = "Error al inicializar el mapa.";
+         return; // Detener si el mapa falla
     }
 
-    // --- Lógica de ID de Usuario (NUEVO en este script) ---
+    // --- Lógica de ID de Usuario ---
     function initializeUserId() {
         currentUserId = sessionStorage.getItem('beachExplorerUserId');
         if (currentUserId) {
             userIdInput.value = currentUserId;
             userIdStatus.textContent = `Identificador activo: ${currentUserId}`;
         } else {
-             userIdStatus.textContent = `Introduce un identificador para guardar notas en las páginas de playas.`;
+             userIdStatus.textContent = `Introduce un identificador para ver/guardar notas personales en cada playa.`;
         }
     }
 
-    if (confirmUserIdButton) {
+    if (confirmUserIdButton && userIdInput && userIdStatus) {
         confirmUserIdButton.addEventListener('click', () => {
             const inputId = userIdInput.value.trim();
             if (inputId) {
                 currentUserId = inputId;
-                sessionStorage.setItem('beachExplorerUserId', currentUserId); // Guardar en session storage
+                sessionStorage.setItem('beachExplorerUserId', currentUserId);
                 userIdStatus.textContent = `ID confirmado: ${currentUserId}`;
-                alert(`Identificador "${currentUserId}" guardado para esta sesión.`); // Feedback visual rápido
+                // Opcional: feedback visual o quitar alert
+                // alert(`Identificador "${currentUserId}" guardado para esta sesión.`);
             } else {
                 alert("Por favor, introduce un identificador válido.");
                  userIdStatus.textContent = `Introduce un identificador para guardar notas.`;
-                sessionStorage.removeItem('beachExplorerUserId'); // Limpiar si se introduce vacío
+                sessionStorage.removeItem('beachExplorerUserId');
                 currentUserId = null;
             }
         });
-    }
-
-    // Inicializar el estado del User ID al cargar
-    if(userIdInput && userIdStatus) { // Asegurarse que los elementos existen
-       initializeUserId();
+         initializeUserId(); // Cargar ID guardado al inicio
+    } else {
+        console.warn("Elementos de ID de usuario no encontrados.");
     }
 
 
@@ -66,55 +70,85 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log("Intentando fetch de beaches.json...");
     fetch('beaches.json')
       .then(response => {
-          console.log("Respuesta fetch recibida:", response.status);
+          console.log("Respuesta fetch recibida para beaches.json. Estado:", response.status);
           if (!response.ok) {
-              throw new Error(`Error HTTP! estado: ${response.status}`);
+              throw new Error(`HTTP error! estado: ${response.status} ${response.statusText}`);
           }
           return response.json();
       })
       .then(beachData => {
           console.log("Datos JSON procesados. Añadiendo marcadores...");
-          addBeachMarkers(beachData);
+          addBeachMarkers(beachData); // Llamar a la función para añadir marcadores
       })
       .catch(error => {
           console.error('Error al cargar los datos de las playas (fetch catch):', error);
-          const mapDiv = document.getElementById('map');
-          if (mapDiv && !mapDiv.querySelector('.error-message')) {
-               mapDiv.innerHTML = `<p class="error-message" style="color: red; text-align: center; padding: 20px;">No se pudieron cargar los datos de las playas. Revisa la consola.</p>`;
+          // Mostrar error en la sección de ID en lugar de sobreescribir el mapa
+          if(userIdStatus) {
+              userIdStatus.innerHTML = `<span style="color: red; font-weight: bold;">Error: No se pudieron cargar los datos de las playas. (${error.message})</span>`;
           }
-          // Mostrar error también en la sección de ID
-          if(userIdStatus) userIdStatus.textContent = "Error al cargar datos de playas.";
+          // Opcional: Mostrar un mensaje discreto sobre el mapa si el div aún existe
+          const mapDiv = document.getElementById('map');
+          if (map && mapDiv && !mapDiv.querySelector('.fetch-error-overlay')) { // Evitar duplicados
+                const errorOverlay = document.createElement('div');
+                errorOverlay.className = 'fetch-error-overlay'; // Para posible estilo CSS
+                errorOverlay.style.position = 'absolute';
+                errorOverlay.style.top = '10px';
+                errorOverlay.style.left = '50%';
+                errorOverlay.style.transform = 'translateX(-50%)';
+                errorOverlay.style.backgroundColor = 'rgba(255, 0, 0, 0.7)';
+                errorOverlay.style.color = 'white';
+                errorOverlay.style.padding = '5px 10px';
+                errorOverlay.style.borderRadius = '3px';
+                errorOverlay.style.zIndex = '1001'; // Encima del mapa
+                errorOverlay.textContent = 'Error al cargar datos de playas';
+                mapDiv.appendChild(errorOverlay);
+          }
       });
 
-    // --- Funciones ---
+    // --- Función para Añadir Marcadores ---
     function addBeachMarkers(beaches) {
-      if (!beaches || beaches.length === 0) {
-        console.warn("No se proporcionaron datos de playas para addBeachMarkers");
+      if (!map) { // Comprobar si el mapa existe
+           console.error("No se puede añadir marcadores, el objeto 'map' no está definido.");
+           return;
+      }
+      if (!beaches || !Array.isArray(beaches) || beaches.length === 0) {
+        console.warn("No se proporcionaron datos válidos de playas para addBeachMarkers");
         return;
       }
        console.log(`Añadiendo ${beaches.length} marcadores.`);
 
       beaches.forEach(beach => {
-        if (!beach.coordinates || beach.coordinates.length !== 2) {
-            console.warn(`Omitiendo playa "${beach.name}" por coordenadas inválidas.`);
+        if (!beach || !beach.coordinates || !Array.isArray(beach.coordinates) || beach.coordinates.length !== 2) {
+            console.warn(`Omitiendo playa (datos inválidos o sin coordenadas):`, beach && beach.name ? beach.name : 'Desconocido');
             return;
         }
+        if (typeof L === 'undefined' || !L.marker) { // Comprobar si L.marker existe
+            console.error("Leaflet (L.marker) no está disponible para crear marcador.");
+            return; // Salir si Leaflet no está listo
+        }
 
-        const marker = L.marker(beach.coordinates).addTo(map);
-        marker.beachInfo = beach;
-        marker.bindTooltip(beach.name);
+        try { // Añadir try-catch por si falla un marcador individual
+            const marker = L.marker(beach.coordinates).addTo(map);
+            marker.beachInfo = beach; // Guardar info completa
+            if(beach.name) marker.bindTooltip(beach.name); // Añadir tooltip si hay nombre
 
-        marker.on('click', function() {
-          const beachId = this.beachInfo.id;
-          if (beachId) {
-              // La redirección no cambia, beach.html leerá el ID de sessionStorage
-              window.location.href = `beach.html?id=${encodeURIComponent(beachId)}`;
-          } else {
-              console.error("El marcador no tiene un ID de playa asociado.");
-              alert("No se pudo obtener el identificador de esta playa.");
-          }
-        });
+            marker.on('click', function() {
+              const beachId = this.beachInfo ? this.beachInfo.id : null;
+              if (beachId) {
+                  // Redirigir a la página de detalles
+                  window.location.href = `beach.html?id=${encodeURIComponent(beachId)}`;
+              } else {
+                  console.error("El marcador clickeado no tiene un ID de playa asociado:", this.beachInfo);
+                  alert("No se pudo obtener el identificador único de esta playa.");
+              }
+            });
+        } catch(markerError) {
+             console.error(`Error al crear marcador para playa ${beach.name || 'desconocida'}:`, markerError);
+        }
       });
+       console.log("Proceso de añadir marcadores completado.");
     }
+
+    console.log("Script del mapa terminado de cargar (excepto operaciones asíncronas).");
 
 }); // Fin DOMContentLoaded
