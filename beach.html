@@ -3,24 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalles de la Playa</title>
+    <title>Detalles de la Playa</title> <!-- El título se actualizará con JS -->
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Clases utilitarias pueden ir aquí o en style.css */
-        .hidden { display: none !important; }
+        /* Clase utilitaria para ocultar elementos */
+        .hidden {
+            display: none !important;
+        }
     </style>
 </head>
 <body>
 
+    <!-- Contenedor general para centrar y dar estilo -->
     <div class="beach-detail-container">
+
+        <!-- Enlace para volver al mapa -->
         <a href="index.html" class="back-link">← Volver al Mapa</a>
 
-        <!-- Contenido principal que se rellena/muestra con JS -->
+        <!-- Contenedor principal del contenido de la playa -->
+        <!-- Inicialmente oculto con la clase 'hidden' -->
         <div id="beach-content" class="hidden">
-            <h1 id="beach-detail-name">Cargando...</h1>
+
+            <!-- Título de la playa -->
+            <h1 id="beach-detail-name">Cargando nombre...</h1>
+
+            <!-- Imagen de la playa -->
+            <!-- Inicialmente oculta con estilo inline, JS la mostrará si hay URL -->
             <img id="beach-detail-photo" src="images/placeholder.jpg" alt="Foto de la playa" style="display: none;">
-            <p id="beach-detail-description" class="description"></p>
-            <div id="beach-detail-characteristics" class="characteristics">
+
+            <!-- Descripción de la playa -->
+            <p id="beach-detail-description" class="description">Cargando descripción...</p>
+
+            <!-- Sección de Características -->
+            <!-- JS mostrará/ocultará esto basado en si hay datos -->
+            <div id="beach-detail-characteristics" class="characteristics" style="display: block;"> <!-- Empezar visible, JS lo ocultará si es vacío -->
                 <h2>Características:</h2>
                 <p id="beach-detail-sand"></p>
                 <p id="beach-detail-concurrency"></p>
@@ -30,23 +46,28 @@
             </div>
 
             <!-- Sección de Notas del Usuario -->
+            <!-- Inicialmente oculta, JS la mostrará si hay userId -->
             <div id="notes-section-wrapper" class="user-notes-section hidden">
                 <h2>Mis Notas Personales (<span id="current-user-id" style="font-weight:normal;">Usuario no identificado</span>)</h2>
-                <div id="notes-content"> <!-- Contenedor para mostrar/ocultar notas -->
+                <!-- Contenido real de las notas (textarea/botón) -->
+                <div id="notes-content" class="hidden"> <!-- Oculto hasta que haya userId -->
                     <label for="user-notes">Escribe o edita tus notas sobre esta playa:</label>
-                    <textarea id="user-notes" rows="6" placeholder="Introduce un ID en la página del mapa para activar las notas..."></textarea>
+                    <textarea id="user-notes" rows="6" placeholder="Cargando notas..." disabled></textarea>
                     <button id="save-notes-button" disabled>Guardar Notas en Firebase</button>
                     <span id="notes-status" style="margin-left: 10px; font-style: italic; font-size: 0.9em;"></span>
                 </div>
+                 <!-- Mensaje si no hay userId -->
                  <p id="notes-disabled-message" class="hidden" style="color: #777; margin-top: 15px;">Debes <a href="index.html">volver al mapa</a> e introducir un identificador de usuario para poder guardar notas.</p>
-            </div>
-        </div>
+            </div> <!-- Fin notes-section-wrapper -->
 
-        <!-- Placeholder para errores -->
+        </div> <!-- Fin beach-content -->
+
+        <!-- Placeholder para mostrar errores generales -->
         <div id="error-placeholder" class="error-message hidden"></div>
-    </div>
 
-    <!-- SDKs de Firebase (Compatibilidad v8/v9) -->
+    </div> <!-- Fin beach-detail-container -->
+
+    <!-- SDKs de Firebase -->
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
 
