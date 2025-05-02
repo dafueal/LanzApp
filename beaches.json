@@ -72,7 +72,7 @@
   {
     "id": "playa_mujeres",
     "name": "Playa Mujeres",
-    "coordinates": [28.8560, -13.7947],
+    "coordinates": [28.8460, -13.7947],  // Corregido según lista (era 28.8560 antes, me equivoqué)
     "photoUrl": "images/playa_mujeres.jpg",
     "description": "Primera de las Playas de Papagayo al llegar desde Playa Blanca. Es amplia, de arena dorada y aguas tranquilas, ideal para quienes buscan más espacio.",
     "characteristics": {
@@ -305,6 +305,76 @@
       "waterQuality": "Buena",
       "amenities": "Restaurantes en el pueblo",
       "accessibility": "Acceso desde el pueblo"
+    }
+  },
+  {
+    "id": "caleton_blanco",
+    "name": "Caletón Blanco",
+    "coordinates": [29.1770, -13.4570],
+    "photoUrl": "images/caleton_blanco.jpg",
+    "description": "Famosa por su arena blanca contrastando con la roca volcánica negra y sus charcos tranquilos de aguas cristalinas. Ideal para fotos y un baño relajado.",
+    "characteristics": {
+      "sandType": "Arena Blanca muy fina",
+      "concurrency": "Media",
+      "waterQuality": "Excelente (en los charcos)",
+      "amenities": "Aparcamiento cercano",
+      "accessibility": "Fácil acceso desde la carretera"
+    }
+  },
+  {
+    "id": "playa_janubio",
+    "name": "Playa de Janubio",
+    "coordinates": [28.9440, -13.8320],
+    "photoUrl": "images/playa_janubio.jpg",
+    "description": "Playa de arena negra volcánica junto a las Salinas de Janubio. Oleaje a menudo fuerte, no recomendada para el baño pero con paisaje impactante.",
+    "characteristics": {
+      "sandType": "Arena Negra Gruesa",
+      "concurrency": "Baja",
+      "waterQuality": "Variable (Oleaje fuerte)",
+      "amenities": "Vista a las salinas, aparcamiento",
+      "accessibility": "Fácil acceso"
+    }
+  },
+  {
+    "id": "caleta_mero",
+    "name": "Caleta del Mero",
+    "coordinates": [29.1530, -13.4540],
+    "photoUrl": "images/caleta_mero.jpg",
+    "description": "Pequeña cala de arena blanca y fina con aguas turquesas, ubicada al norte de Arrieta, cerca de Los Jameos del Agua. Popular entre locales y familias.",
+    "characteristics": {
+      "sandType": "Arena Blanca Fina",
+      "concurrency": "Baja-Media",
+      "waterQuality": "Excelente",
+      "amenities": "Ninguno directamente en la playa",
+      "accessibility": "Acceso por camino de tierra corto"
+    }
+  },
+  {
+    "id": "playa_montana_bermeja",
+    "name": "Playa de Montaña Bermeja",
+    "coordinates": [28.9510, -13.8580],
+    "photoUrl": "images/playa_montana_bermeja.jpg",
+    "description": "Impresionante playa de arena negra situada al pie de la Montaña Bermeja, en la costa suroeste. Fuerte oleaje y paisaje volcánico dramático. Cercana a Los Hervideros.",
+    "characteristics": {
+      "sandType": "Arena Negra Gruesa",
+      "concurrency": "Baja",
+      "waterQuality": "Variable (Oleaje muy fuerte)",
+      "amenities": "Ninguno, aparcamiento cercano",
+      "accessibility": "Acceso relativamente fácil desde aparcamiento"
+    }
+  },
+  {
+    "id": "playa_del_paso",
+    "name": "Playa del Paso",
+    "coordinates": [28.9760, -13.8320],
+    "photoUrl": "images/playa_del_paso.jpg",
+    "description": "Pequeña playa de arena negra y callaos ubicada muy cerca de El Golfo y el Charco de los Clicos. Expuesta al oleaje.",
+    "characteristics": {
+      "sandType": "Arena Negra y Callaos",
+      "concurrency": "Muy Baja",
+      "waterQuality": "Variable (Oleaje fuerte)",
+      "amenities": "Cercanía a El Golfo",
+      "accessibility": "Acceso por sendero corto"
     }
   }
 ]
