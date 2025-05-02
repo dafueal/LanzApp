@@ -18,14 +18,30 @@
     <!-- El div del mapa -->
     <div id="map"></div>
 
-    <!-- Sección de Identificación de Usuario -->
-    <div id="user-id-section">
-        <h2>Identificación de Usuario</h2>
-        <label for="user-id-input">Introduce tu identificador único:</label>
-        <input type="text" id="user-id-input" placeholder="Ej: miUsuario123">
-        <button id="confirm-user-id-button">Usar este Identificador</button>
-        <p id="user-id-status" style="font-style: italic;"></p>
+    <!-- Sección de Identificación y Edición -->
+    <div id="controls-section"> {/* Nuevo contenedor para agrupar */}
+        <div id="user-id-section">
+            <h2>Identificación de Usuario</h2>
+            <label for="user-id-input">Introduce tu identificador único:</label>
+            <input type="text" id="user-id-input" placeholder="Ej: miUsuario123">
+            <button id="confirm-user-id-button">Usar este Identificador</button>
+            <p id="user-id-status" style="font-style: italic;"></p>
+        </div>
+
+        <!-- === NUEVA SECCIÓN DE MODO EDICIÓN === -->
+        <div id="edit-mode-section">
+            <h2>Modo Edición Coordenadas</h2>
+            <label for="edit-mode-toggle">
+                <input type="checkbox" id="edit-mode-toggle">
+                Activar arrastre de marcadores
+            </label>
+            <div id="coordinate-update-info" style="margin-top: 10px; font-size: 0.9em; color: #333; min-height: 4em;">
+                <i>Para corregir la posición de un marcador, activa el modo edición y arrástralo a su nueva ubicación. Las nuevas coordenadas aparecerán aquí.</i>
+            </div>
+        </div>
+        <!-- === FIN SECCIÓN EDICIÓN === -->
     </div>
+
 
     <!-- Leaflet JavaScript -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
