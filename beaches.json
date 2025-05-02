@@ -1,9 +1,8 @@
-
-  // --- Playas Originales (Ya estaban) ---
+[
   {
     "id": "papagayo",
     "name": "Playa de Papagayo",
-    "coordinates": [28.8405, -13.7900], // Verificar
+    "coordinates": [28.8405, -13.7900],
     "photoUrl": "images/papagayo.jpg",
     "description": "Posiblemente la playa más famosa de Lanzarote, parte de una serie de impresionantes calas dentro del Monumento Natural de Los Ajaches. Conocida por su prístina arena blanca y aguas turquesas y tranquilas, ideal para nadar y hacer snorkel.",
     "characteristics": {
@@ -17,7 +16,7 @@
   {
     "id": "famara",
     "name": "Playa de Famara",
-    "coordinates": [29.1150, -13.5580], // Verificar
+    "coordinates": [29.1150, -13.5580],
     "photoUrl": "images/famara.jpg",
     "description": "Una playa espectacular y extensa respaldada por imponentes acantilados (Risco de Famara). Muy popular entre surfistas y kitesurfistas debido al viento y oleaje constantes. Ofrece impresionantes vistas al atardecer.",
     "characteristics": {
@@ -31,7 +30,7 @@
   {
     "id": "playa_blanca_dorada",
     "name": "Playa Dorada (Playa Blanca)",
-    "coordinates": [28.8625, -13.8220], // Verificar
+    "coordinates": [28.8625, -13.8220],
     "photoUrl": "images/playa_dorada.jpg",
     "description": "Una popular playa de arena dorada y bien protegida en el corazón del resort de Playa Blanca. Sus aguas tranquilas la hacen ideal para familias. Completamente equipada con servicios.",
     "characteristics": {
@@ -45,7 +44,7 @@
   {
     "id": "puerto_del_carmen_grande",
     "name": "Playa Grande (Puerto del Carmen)",
-    "coordinates": [28.9195, -13.6675], // Verificar
+    "coordinates": [28.9195, -13.6675],
     "photoUrl": "images/playa_grande.jpg",
     "description": "La playa principal de Puerto del Carmen, una larga franja de arena dorada con aguas tranquilas. Respaldada por un animado paseo marítimo lleno de tiendas, bares y restaurantes.",
     "characteristics": {
@@ -59,7 +58,7 @@
   {
     "id": "el_golfo_charco_verde",
     "name": "Charco de los Clicos (El Golfo)",
-    "coordinates": [28.9790, -13.8300], // Verificar (Playa junto al Charco)
+    "coordinates": [28.9790, -13.8300],
     "photoUrl": "images/el_golfo.jpg",
     "description": "Aunque es famoso por la laguna verde (Charco de los Clicos), aquí hay una espectacular playa de arena negra frente al océano abierto. El baño suele ser peligroso debido a las fuertes olas y corrientes, pero el paisaje es único.",
     "characteristics": {
@@ -70,14 +69,10 @@
         "accessibility": "Paseo fácil hasta el mirador, sendero para bajar a la playa"
     }
   },
-
-  // --- NUEVAS PLAYAS AÑADIDAS ---
-
-  // Zona Sur: Papagayo y alrededores
   {
     "id": "playa_mujeres",
     "name": "Playa Mujeres",
-    "coordinates": [28.8465, -13.7935], // APROXIMADO - Verificar!
+    "coordinates": [28.8465, -13.7935],
     "photoUrl": "images/playa_mujeres.jpg",
     "description": "Primera de las Playas de Papagayo al llegar desde Playa Blanca. Es amplia, de arena dorada y aguas tranquilas, ideal para quienes buscan más espacio.",
     "characteristics": {
@@ -91,7 +86,7 @@
   {
     "id": "caleta_congrio",
     "name": "Caleta del Congrio",
-    "coordinates": [28.8375, -13.7850], // APROXIMADO - Verificar! (Al este de Papagayo)
+    "coordinates": [28.8375, -13.7850],
     "photoUrl": "images/caleta_congrio.jpg",
     "description": "Situada al este de la Playa de Papagayo, es conocida por ser frecuentada por naturistas. Entorno virgen y aguas calmadas.",
     "characteristics": {
@@ -105,7 +100,7 @@
   {
     "id": "playa_pozo",
     "name": "Playa del Pozo",
-    "coordinates": [28.8425, -13.7920], // APROXIMADO - Verificar! (Entre Mujeres y Papagayo)
+    "coordinates": [28.8425, -13.7920],
     "photoUrl": "images/playa_pozo.jpg",
     "description": "Ubicada entre Playa Mujeres y Playa de Papagayo, suele ser menos concurrida, ofreciendo mayor privacidad. Arena fina y aguas claras.",
     "characteristics": {
@@ -119,7 +114,7 @@
   {
     "id": "playa_puerto_muelas",
     "name": "Playa Puerto Muelas",
-    "coordinates": [28.8360, -13.7830], // APROXIMADO - Verificar! (Cerca Camping Papagayo)
+    "coordinates": [28.8360, -13.7830],
     "photoUrl": "images/playa_puerto_muelas.jpg",
     "description": "Playa situada cerca de la zona de acampada de Papagayo. Cómoda para los campistas, de arena y rocas.",
     "characteristics": {
@@ -133,7 +128,7 @@
    {
     "id": "playa_la_cera",
     "name": "Playa de La Cera",
-    "coordinates": [28.8400, -13.7910], // APROXIMADO - Verificar! (Justo al oeste de Papagayo)
+    "coordinates": [28.8400, -13.7910],
     "photoUrl": "images/playa_la_cera.jpg",
     "description": "Pequeña y encantadora cala situada justo al lado oeste de la famosa Playa de Papagayo. Arena blanca y aguas muy tranquilas.",
     "characteristics": {
@@ -147,7 +142,7 @@
   {
     "id": "caleton_cobre_marcial",
     "name": "Caletón del Cobre / San Marcial",
-    "coordinates": [28.8385, -13.7875], // APROXIMADO - Verificar! (Entre Papagayo y Congrio)
+    "coordinates": [28.8385, -13.7875],
     "photoUrl": "images/caleton_cobre_marcial.jpg",
     "description": "Dos pequeñas calas rocosas situadas entre Papagayo y Caleta del Congrio, ideales para explorar haciendo snorkel y disfrutar de tranquilidad.",
     "characteristics": {
@@ -158,12 +153,10 @@
       "accessibility": "Acceso por sendero costero"
     }
   },
-
-  // Zona Oeste: Famara y entorno
    {
     "id": "playa_del_risco",
     "name": "Playa del Risco",
-    "coordinates": [29.2080, -13.5315], // APROXIMADO - Verificar! (Norte de la isla, bajo el risco)
+    "coordinates": [29.2080, -13.5315],
     "photoUrl": "images/playa_del_risco.jpg",
     "description": "Playa salvaje y aislada accesible tras una caminata exigente por el Camino de los Gracioseros. Recompensa con espectaculares vistas a La Graciosa y una tranquilidad absoluta.",
     "characteristics": {
@@ -174,12 +167,10 @@
       "accessibility": "Difícil (requiere caminata larga y empinada)"
     }
   },
-
-  // Zona Este: Costa Teguise y Arrecife
   {
     "id": "playa_jablillo",
     "name": "Playa del Jablillo",
-    "coordinates": [28.9935, -13.4900], // APROXIMADO - Verificar! (Costa Teguise)
+    "coordinates": [28.9935, -13.4900],
     "photoUrl": "images/playa_jablillo.jpg",
     "description": "Pequeña playa resguardada por escolleras en Costa Teguise, formando una piscina natural ideal para familias y snorkel.",
     "characteristics": {
@@ -193,7 +184,7 @@
   {
     "id": "playa_cucharas",
     "name": "Playa de las Cucharas",
-    "coordinates": [28.9985, -13.4860], // APROXIMADO - Verificar! (Costa Teguise)
+    "coordinates": [28.9985, -13.4860],
     "photoUrl": "images/playa_cucharas.jpg",
     "description": "La playa principal de Costa Teguise, con Bandera Azul. Popular entre windsurfistas por sus condiciones de viento y también para familias por sus servicios.",
     "characteristics": {
@@ -207,7 +198,7 @@
   {
     "id": "playa_reducto",
     "name": "Playa del Reducto",
-    "coordinates": [28.9560, -13.5480], // APROXIMADO - Verificar! (Arrecife)
+    "coordinates": [28.9560, -13.5480],
     "photoUrl": "images/playa_reducto.jpg",
     "description": "Playa urbana principal de Arrecife, la capital. Arena blanca, aguas tranquilas y todos los servicios de una ciudad a mano.",
     "characteristics": {
@@ -221,7 +212,7 @@
   {
     "id": "playa_la_garita",
     "name": "Playa de La Garita (Arrieta)",
-    "coordinates": [29.1430, -13.4575], // APROXIMADO - Verificar! (Arrieta)
+    "coordinates": [29.1430, -13.4575],
     "photoUrl": "images/playa_la_garita.jpg",
     "description": "Playa familiar en el pueblo pesquero de Arrieta. Ambiente local tranquilo, arena dorada/oscura y varios chiringuitos para comer pescado fresco.",
     "characteristics": {
@@ -232,12 +223,10 @@
       "accessibility": "Fácil acceso desde el pueblo"
     }
   },
-
-  // Zona Sureste: Puerto del Carmen y Playa Blanca
    {
     "id": "playa_chica",
     "name": "Playa Chica",
-    "coordinates": [28.9155, -13.6715], // APROXIMADO - Verificar! (Puerto del Carmen, cerca del puerto viejo)
+    "coordinates": [28.9155, -13.6715],
     "photoUrl": "images/playa_chica.jpg",
     "description": "Pequeña cala en Puerto del Carmen, muy popular para el buceo y el snorkel por su rica vida marina y aguas claras y tranquilas.",
     "characteristics": {
@@ -251,7 +240,7 @@
   {
     "id": "playa_pocillos",
     "name": "Playa de los Pocillos",
-    "coordinates": [28.9360, -13.6450], // APROXIMADO - Verificar! (Puerto del Carmen)
+    "coordinates": [28.9360, -13.6450],
     "photoUrl": "images/playa_pocillos.jpg",
     "description": "Playa muy extensa y ancha en Puerto del Carmen, continuación de Playa Grande. Ideal para largos paseos, tomar el sol con espacio y actividades deportivas.",
     "characteristics": {
@@ -265,7 +254,7 @@
    {
     "id": "playa_matagorda",
     "name": "Playa Matagorda",
-    "coordinates": [28.9480, -13.6280], // APROXIMADO - Verificar! (Continuación de Pocillos)
+    "coordinates": [28.9480, -13.6280],
     "photoUrl": "images/playa_matagorda.jpg",
     "description": "Situada al final de la línea de playas de Puerto del Carmen, continuación de Los Pocillos. Ambiente más tranquilo y familiar, cerca del aeropuerto.",
     "characteristics": {
@@ -279,7 +268,7 @@
    {
     "id": "playa_flamingo",
     "name": "Playa Flamingo",
-    "coordinates": [28.8575, -13.8340], // APROXIMADO - Verificar! (Playa Blanca)
+    "coordinates": [28.8575, -13.8340],
     "photoUrl": "images/playa_flamingo.jpg",
     "description": "Popular playa artificial en Playa Blanca, protegida por espigones que crean aguas muy calmadas, ideal para familias con niños pequeños.",
     "characteristics": {
@@ -293,7 +282,7 @@
    {
     "id": "playa_quemada",
     "name": "Playa Quemada",
-    "coordinates": [28.8920, -13.7550], // APROXIMADO - Verificar! (Pueblo Playa Quemada)
+    "coordinates": [28.8920, -13.7550],
     "photoUrl": "images/playa_quemada.jpg",
     "description": "Pequeña playa de arena negra/callaos en el tranquilo pueblo pesquero del mismo nombre. Ambiente auténtico y varios restaurantes conocidos por su pescado fresco.",
     "characteristics": {
@@ -304,3 +293,4 @@
       "accessibility": "Acceso desde el pueblo"
     }
   }
+]
