@@ -1,147 +1,109 @@
+/* global L */ // <-- Indica a JSHint que L es global
 document.addEventListener('DOMContentLoaded', () => {
     console.log("DOM Cargado. Iniciando script del mapa...");
 
     // --- Elementos DOM ---
+    // ¡Estas variables DEBEN usarse después!
     const userIdInput = document.getElementById('user-id-input');
     const confirmUserIdButton = document.getElementById('confirm-user-id-button');
     const userIdStatus = document.getElementById('user-id-status');
-    const editModeToggle = document.getElementById('edit-mode-toggle'); // <-- NUEVO: Checkbox Edición
-    const coordinateUpdateInfoDiv = document.getElementById('coordinate-update-info'); // <-- NUEVO: Div Info Coords
+    const editModeToggle = document.getElementById('edit-mode-toggle');
+    const coordinateUpdateInfoDiv = document.getElementById('coordinate-update-info');
 
     // --- Variables Globales ---
-    let currentUserId = null;
-    let map; // Variable para el mapa
-    let isEditMode = false; // <-- NUEVO: Estado de edición
-    const markers = []; // <-- NUEVO: Array para guardar los marcadores
+    let currentUserId = null; // ¡Esta variable DEBE usarse después!
+    let map;
+    let isEditMode = false;
+    const markers = [];
 
-    // --- Inicialización del Mapa (igual que antes) ---
-    const lanzaroteCenter = [29.0469, -13.589];
+    // --- Inicialización del Mapa ---
+    // ... (código de inicialización del mapa como antes) ...
     try {
-        // ... (inicialización de map y tileLayer igual que antes) ...
-        map = L.map('map').setView(lanzaroteCenter, 10);
+        map = L.map('map').setView([29.0469, -13.589], 10);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { /* ... */ }).addTo(map);
         console.log("Mapa inicializado.");
-    } catch (e) { /* ... manejo de error igual ... */ }
-
-    // --- Lógica de ID de Usuario (igual que antes) ---
-    function initializeUserId() { /* ... */ }
-    if (confirmUserIdButton) { confirmUserIdButton.addEventListener('click', () => { /* ... */ }); }
-    initializeUserId();
-
-    // --- Cargar Datos de Playas (igual que antes) ---
-    fetch('beaches.json')
-      .then(response => {
-          if (!response.ok) throw new Error(`HTTP error! estado: ${response.status}`);
-          return response.json();
-      })
-      .then(beachData => {
-          addBeachMarkers(beachData);
-      })
-      .catch(error => { /* ... manejo de error igual ... */ });
+    } catch (e) {
+        console.error("¡ERROR FATAL inicializando mapa!", e);
+        // ... (manejo de error) ...
+        return;
+    }
 
 
-    // --- Función para Añadir Marcadores (MODIFICADA) ---
-    function addBeachMarkers(beaches) {
-        if (!map) { console.error("Mapa no inicializado para añadir marcadores."); return; }
-        if (!beaches || !Array.isArray(beaches)) return;
+    // --- Lógica de ID de Usuario ---
+    function initializeUserId() {
+        // ¡Asegúrate que estas líneas NO están comentadas!
+        currentUserId = sessionStorage.getItem('beachExplorerUserId'); // <-- Uso de currentUserId
+        if (userIdInput && userIdStatus) { // Comprobar si existen los elementos
+            if (currentUserId) {
+                userIdInput.value = currentUserId; // <-- Uso de userIdInput
+                userIdStatus.textContent = `Identificador activo: ${currentUserId}`; // <-- Uso de userIdStatus
+            } else {
+                 userIdStatus.textContent = `Introduce un identificador...`; // <-- Uso de userIdStatus
+            }
+        } else {
+             console.warn("Elementos de User ID no encontrados al inicializar.")
+        }
+         console.log(`[DEBUG] initializeUserId completado. currentUserId: ${currentUserId}`);
+    }
 
-        console.log(`Añadiendo ${beaches.length} marcadores.`);
-        beaches.forEach(beach => {
-            if (!beach?.coordinates?.length === 2) return; // Simplificado
+    // ¡Asegúrate que este bloque y su contenido NO están comentados!
+    if (confirmUserIdButton && userIdInput && userIdStatus) {
+        confirmUserIdButton.addEventListener('click', () => {
+            console.log("[DEBUG] Clic en botón Confirmar ID detectado!");
+            const inputId = userIdInput.value.trim(); // <-- Uso de userIdInput
+            console.log("[DEBUG] Valor del input:", inputId);
 
-            try {
-                const marker = L.marker(beach.coordinates, {
-                    draggable: isEditMode // <-- NUEVO: Draggable según modo edición inicial
-                }).addTo(map);
-
-                marker.beachInfo = beach;
-                if(beach.name) marker.bindTooltip(beach.name);
-
-                // Listener para ir a detalles (si no estamos en modo edición)
-                marker.on('click', function() {
-                    if (!isEditMode) { // Solo redirigir si NO estamos editando
-                        const beachId = this.beachInfo?.id;
-                        if (beachId) {
-                            window.location.href = `beach.html?id=${encodeURIComponent(beachId)}`;
-                        } else {
-                            console.error("Marcador sin ID de playa.");
-                        }
-                    } else {
-                         // En modo edición, el click podría seleccionar para editar, pero por ahora no hace nada
-                         console.log("Modo Edición: Click en marcador (no redirige). ID:", this.beachInfo?.id);
-                    }
-                });
-
-                // Añadir listener dragend INICIALMENTE si editMode ya estuviera activo
-                if (isEditMode) {
-                    marker.on('dragend', handleMarkerDragEnd);
+            if (inputId) {
+                currentUserId = inputId; // <-- Uso de currentUserId
+                try {
+                    sessionStorage.setItem('beachExplorerUserId', currentUserId); // <-- Uso de currentUserId
+                    console.log("[DEBUG] ID guardado en sessionStorage.");
+                    userIdStatus.textContent = `ID confirmado: ${currentUserId}`; // <-- Uso de userIdStatus
+                    console.log(`[DEBUG] Mensaje de estado actualizado.`);
+                } catch (e) {
+                    console.error("[DEBUG] ERROR al guardar en sessionStorage:", e);
+                    userIdStatus.textContent = `Error al guardar ID.`; // <-- Uso de userIdStatus
+                    alert("Hubo un error al intentar guardar el identificador.");
                 }
-
-                markers.push(marker); // <-- NUEVO: Guardar referencia al marcador
-
-            } catch(markerError) {
-                 console.error(`Error al crear marcador para ${beach.name || 'desconocida'}:`, markerError);
+            } else {
+                console.log("[DEBUG] Input ID está vacío.");
+                alert("Por favor, introduce un identificador válido.");
+                 userIdStatus.textContent = `Introduce un identificador...`; // <-- Uso de userIdStatus
+                try {
+                     sessionStorage.removeItem('beachExplorerUserId');
+                     console.log("[DEBUG] ID borrado de sessionStorage.");
+                } catch (e) {
+                     console.error("[DEBUG] ERROR al borrar de sessionStorage:", e);
+                }
+                currentUserId = null; // <-- Uso de currentUserId
             }
         });
-        console.log("Marcadores añadidos.");
+         // ¡Asegúrate que esta llamada NO está comentada!
+         console.log("[DEBUG] Llamando a initializeUserId...");
+         initializeUserId();
+
+    } else {
+        console.error("[DEBUG] ¡ERROR! No se encontró el botón, input o status de User ID. Listeners no añadidos.");
     }
 
-    // --- NUEVA LÓGICA PARA MODO EDICIÓN ---
 
-    /**
-     * Manejador para cuando se suelta un marcador después de arrastrarlo.
-     * @param {LeafletEvent} event Evento de Leaflet
-     */
-    function handleMarkerDragEnd(event) {
-        const marker = event.target; // El marcador que se movió
-        const position = marker.getLatLng(); // Nuevas coordenadas
-        const beachId = marker.beachInfo?.id;
-        const beachName = marker.beachInfo?.name || 'Desconocido';
+    // --- Cargar Datos de Playas ---
+    // ... (código fetch y addBeachMarkers como antes) ...
+     fetch('beaches.json')
+        .then(response => { /* ... */ })
+        .then(beachData => { addBeachMarkers(beachData); })
+        .catch(error => { /* ... */ });
 
-        if (!coordinateUpdateInfoDiv) return; // Salir si el div no existe
 
-        const lat = position.lat.toFixed(6); // Formatear con 6 decimales
-        const lng = position.lng.toFixed(6);
+    // --- Función addBeachMarkers (MODIFICADA para edición) ---
+    function addBeachMarkers(beaches) { /* ... código como antes ... */ }
 
-        console.log(`[EDIT] Marcador movido: ${beachName} (ID: ${beachId}) a [${lat}, ${lng}]`);
+    // --- Lógica para Modo Edición ---
+    function handleMarkerDragEnd(event) { /* ... código como antes ... */ }
+    function toggleEditMode() { /* ... código como antes ... */ }
 
-        // Mostrar la información en el div
-        coordinateUpdateInfoDiv.innerHTML = `
-            Marcador movido: <strong>${beachName}</strong> (ID: ${beachId})<br>
-            Nuevas Coordenadas: <code>[${lat}, ${lng}]</code><br>
-            <i>Actualiza manualmente estas coordenadas en beaches.json si son correctas.</i>`;
-    }
-
-    /**
-     * Activa o desactiva el modo de edición para todos los marcadores.
-     */
-    function toggleEditMode() {
-        isEditMode = editModeToggle.checked; // Actualizar estado global
-
-        if (!coordinateUpdateInfoDiv) return;
-
-        if (isEditMode) {
-            console.log("Activando modo edición.");
-            coordinateUpdateInfoDiv.innerHTML = '<i>Modo edición activado. Arrastra un marcador para ajustar su posición.</i>';
-            markers.forEach(marker => {
-                marker.dragging.enable(); // Habilitar arrastre
-                marker.on('dragend', handleMarkerDragEnd); // Añadir listener
-            });
-            // Opcional: Cambiar cursor sobre el mapa o marcadores
-            if (map?._container) map._container.style.cursor = 'grab';
-
-        } else {
-            console.log("Desactivando modo edición.");
-             coordinateUpdateInfoDiv.innerHTML = '<i>Para corregir la posición de un marcador, activa el modo edición y arrástralo a su nueva ubicación...</i>'; // Mensaje original
-            markers.forEach(marker => {
-                marker.dragging.disable(); // Deshabilitar arrastre
-                marker.off('dragend', handleMarkerDragEnd); // QUITAR listener
-            });
-             if (map?._container) map._container.style.cursor = ''; // Restaurar cursor
-        }
-    }
-
-    // Añadir listener al checkbox de edición
+    // ¡Asegúrate que este bloque y su contenido NO están comentados!
+    console.log("[DEBUG] Buscando checkbox #edit-mode-toggle:", editModeToggle);
     if (editModeToggle) {
         editModeToggle.addEventListener('change', toggleEditMode);
     } else {
