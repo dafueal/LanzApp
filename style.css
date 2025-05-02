@@ -10,7 +10,7 @@ body {
 /* ----------------------------------------- */
 
 #map {
-    height: 80vh; /* ¡FUNDAMENTAL! Altura completa de la ventana */
+    height: 70vh; /* ¡FUNDAMENTAL! Altura completa de la ventana */
     width: 100%;   /* Ancho completo */
 }
 
