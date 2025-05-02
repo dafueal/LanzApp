@@ -1,267 +1,92 @@
-/* Estilos generales */
+/* style.css */
+
+/* ... (estilos generales y de #map como los teníamos antes, ej: height: 80vh) ... */
 body {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
-
-/* ----------------------------------------- */
-/* --- Estilos para index.html (Mapa) --- */
-/* ----------------------------------------- */
 
 #map {
-    height: 70vh; /* ¡FUNDAMENTAL! Altura completa de la ventana */
-    width: 100%;   /* Ancho completo */
-}
-
-#user-id-section {
-    padding: 25px 20px;
-    background-color: #e9ecef;
-    border-top: 1px solid #ced4da;
-    text-align: center;
-}
-
-#user-id-section h2 {
-    margin-top: 0;
-    margin-bottom: 20px;
-    font-size: 1.3em;
-    color: #343a40;
-}
-#user-id-section label {
-    margin-right: 10px;
-    font-weight: bold;
-    color: #495057;
-    font-size: 1em;
-}
-
-#user-id-input {
-    padding: 9px 12px;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    margin-right: 10px;
-    min-width: 240px;
-    font-size: 1em;
-    vertical-align: middle;
-}
-
-#confirm-user-id-button {
-    padding: 10px 18px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1em;
-    vertical-align: middle;
-    transition: background-color 0.2s ease;
-}
-#confirm-user-id-button:hover {
-    background-color: #218838;
-}
-
-#user-id-status {
-    display: block;
-    margin-top: 15px;
-    font-style: italic;
-    font-size: 0.9em;
-    color: #6c757d;
-    min-height: 1.2em;
-}
-
-/* Estilos del Tooltip de Leaflet */
-.leaflet-tooltip {
-    background-color: rgba(0, 0, 0, 0.75);
-    color: white;
-    border: none;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
-    border-radius: 3px;
-    padding: 4px 8px;
-    font-size: 0.9em;
-}
-.leaflet-tooltip-top:before,
-.leaflet-tooltip-bottom:before,
-.leaflet-tooltip-left:before,
-.leaflet-tooltip-right:before {
-    border: none;
-}
-
-
-/* ----------------------------------------- */
-/* --- Estilos para beach.html (Detalles) --- */
-/* ----------------------------------------- */
-
-.beach-detail-container {
-    max-width: 850px;
-    margin: 30px auto;
-    padding: 25px 30px;
-    border: 1px solid #dee2e6;
-    background-color: #fff;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.08);
-    border-radius: 6px;
-}
-
-.beach-detail-container img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    display: block;
-}
-
-.beach-detail-container h1 {
-    margin-top: 0;
-    color: #212529;
-    font-size: 2em;
-    margin-bottom: 15px;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 10px;
-}
-
-.beach-detail-container .description {
-    line-height: 1.7;
-    color: #495057;
-    margin-bottom: 30px;
-    font-size: 1.05em;
-}
-
-.beach-detail-container .characteristics h2 {
-    font-size: 1.4em;
-    color: #343a40;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 8px;
-    margin-top: 30px;
-    margin-bottom: 18px;
-}
-
-.beach-detail-container .characteristics p {
-    margin: 10px 0;
-    font-size: 1em;
-    color: #495057;
-    line-height: 1.5;
-}
-.beach-detail-container .characteristics strong {
-    color: #212529;
-    margin-right: 8px;
-    min-width: 120px;
-    display: inline-block;
-}
-
-
-.back-link {
-    display: inline-block;
-    margin-bottom: 25px;
-    color: #007bff;
-    text-decoration: none;
-    font-size: 1em;
-}
-.back-link:hover {
-    text-decoration: underline;
-}
-
-/* --- Estilos para Sección Notas Usuario en beach.html --- */
-.user-notes-section {
-    margin-top: 35px;
-    padding-top: 30px;
-    border-top: 1px solid #dee2e6;
-}
-
-.user-notes-section h2 {
-    font-size: 1.4em;
-    color: #343a40;
-    margin-bottom: 20px;
-}
-.user-notes-section h2 span {
-    font-weight: normal;
-    color: #007bff;
-    font-size: 0.9em;
-    margin-left: 5px;
-}
-
-.user-notes-section label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-    color: #495057;
-    font-size: 1em;
-}
-
-#user-notes {
-    display: block;
+    height: 80vh; /* O la altura que decidiste */
     width: 100%;
-    box-sizing: border-box;
-    padding: 12px;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    font-family: inherit;
-    font-size: 1em;
-    line-height: 1.6;
-    margin-bottom: 15px;
-    min-height: 120px;
 }
 
-#save-notes-button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1em;
-    transition: background-color 0.2s ease;
-}
-
-#save-notes-button:hover {
-    background-color: #0056b3;
-}
-#save-notes-button:disabled {
-    background-color: #adb5bd;
-    cursor: not-allowed;
-}
-
-#notes-status {
-    margin-left: 15px;
-    font-style: italic;
-    font-size: 0.9em;
-    vertical-align: middle;
-}
-#notes-status[style*="color: red"] {
-    font-weight: bold;
-    color: #dc3545 !important;
-}
-#notes-status[style*="color: green"] {
-     color: #28a745 !important;
-}
-#notes-status[style*="color: orange"] {
-     color: #fd7e14 !important;
-}
-
-
-#notes-disabled-message {
-    color: #6c757d;
-    margin-top: 15px;
-    font-style: italic;
-    padding: 10px;
+/* Nuevo Contenedor para controles */
+#controls-section {
+    padding: 15px;
     background-color: #f8f9fa;
-    border: 1px dashed #ced4da;
-    border-radius: 4px;
-}
-#notes-disabled-message a {
-    color: #007bff;
-    font-weight: bold;
-}
-
-/* --- Clases Utilitarias --- */
-.hidden {
-    display: none !important;
+    border-top: 1px solid #dee2e6;
+    display: flex; /* Alinear secciones horizontalmente (opcional) */
+    flex-wrap: wrap; /* Permitir que se apilen si no caben */
+    gap: 20px; /* Espacio entre secciones */
+    justify-content: center; /* Centrar secciones */
 }
 
-.error-message { /* Para mostrar errores genéricos si es necesario */
-    color: #721c24;
-    font-weight: bold;
-    text-align: center;
-    padding: 20px 15px;
-    border: 1px solid #f5c6cb;
-    background-color: #f8d7da;
+/* Ajustar la sección de ID de usuario */
+#user-id-section {
+    padding: 15px; /* Reducir padding si está dentro de controls-section */
+    background-color: #e9ecef;
+    border: 1px solid #ced4da; /* Añadir borde para separarla visualmente */
     border-radius: 5px;
-    margin: 20px 0;
+    text-align: center;
+    flex: 1; /* Permitir que crezca */
+    min-width: 300px; /* Ancho mínimo */
 }
+#user-id-section h2 { margin-top: 0; margin-bottom: 15px; font-size: 1.2em; }
+/* ... (otros estilos de #user-id-section) ... */
+
+
+/* === NUEVOS ESTILOS PARA SECCIÓN EDICIÓN === */
+#edit-mode-section {
+    padding: 15px;
+    background-color: #fff3cd; /* Fondo amarillo pálido para destacar */
+    border: 1px solid #ffeeba;
+    border-radius: 5px;
+    text-align: left; /* Alinear texto a la izquierda */
+    flex: 1; /* Permitir que crezca */
+    min-width: 300px; /* Ancho mínimo */
+}
+#edit-mode-section h2 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+    color: #856404; /* Marrón oscuro */
+}
+#edit-mode-section label {
+    cursor: pointer;
+    font-weight: bold;
+    display: flex; /* Alinear checkbox y texto */
+    align-items: center;
+    gap: 8px; /* Espacio entre checkbox y texto */
+}
+#edit-mode-toggle {
+     width: 16px; /* Tamaño del checkbox */
+     height: 16px;
+     cursor: pointer;
+}
+#coordinate-update-info {
+    margin-top: 15px; /* Más espacio */
+    font-size: 0.9em;
+    color: #665120; /* Marrón */
+    background-color: #fff9e6; /* Fondo aún más pálido */
+    padding: 10px;
+    border-radius: 4px;
+    min-height: 4em; /* Espacio reservado */
+    border: 1px dashed #ffeeba;
+}
+#coordinate-update-info strong {
+    color: #d9534f; /* Rojo para destacar ID */
+}
+#coordinate-update-info code { /* Estilo para las coordenadas */
+    background-color: #e9ecef;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-family: monospace;
+}
+
+
+/* ... (resto de estilos: tooltip, beach.html, etc.) ... */
