@@ -2,7 +2,7 @@
   {
     "id": "papagayo",
     "name": "Playa de Papagayo",
-    "coordinates": [28.8405, -13.7899],
+    "coordinates": [28.842399, -13.788239],
     "photoUrl": "images/papagayo.jpg",
     "description": "Posiblemente la playa más famosa de Lanzarote, parte de una serie de impresionantes calas dentro del Monumento Natural de Los Ajaches. Conocida por su prístina arena blanca y aguas turquesas y tranquilas, ideal para nadar y hacer snorkel.",
     "characteristics": {
@@ -86,7 +86,7 @@
   {
     "id": "caleta_congrio",
     "name": "Caleta del Congrio",
-    "coordinates": [28.8381, -13.7858],
+    "coordinates": [28.841604, -13.784972],
     "photoUrl": "images/caleta_congrio.jpg",
     "description": "Situada al este de la Playa de Papagayo, es conocida por ser frecuentada por naturistas. Entorno virgen y aguas calmadas.",
     "characteristics": {
