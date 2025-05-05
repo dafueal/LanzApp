@@ -44,7 +44,7 @@
   {
     "id": "puerto_del_carmen_grande",
     "name": "Playa Grande (Puerto del Carmen)",
-    "coordinates": [28.9199, -13.6675],
+    "coordinates": [28.919884, -13.662808],
     "photoUrl": "images/playa_grande.jpg",
     "description": "La playa principal de Puerto del Carmen, una larga franja de arena dorada con aguas tranquilas. Respaldada por un animado paseo marítimo lleno de tiendas, bares y restaurantes.",
     "characteristics": {
@@ -114,7 +114,7 @@
   {
     "id": "playa_puerto_muelas",
     "name": "Playa Puerto Muelas",
-    "coordinates": [28.8361, -13.7835],
+    "coordinates": [28.843833, -13.781485],
     "photoUrl": "images/playa_puerto_muelas.jpg",
     "description": "Playa situada cerca de la zona de acampada de Papagayo. Cómoda para los campistas, de arena y rocas.",
     "characteristics": {
@@ -240,7 +240,7 @@
    {
     "id": "playa_chica",
     "name": "Playa Chica",
-    "coordinates": [28.9158, -13.6715],
+    "coordinates": [28.919039, -13.668430],
     "photoUrl": "images/playa_chica.jpg",
     "description": "Pequeña cala en Puerto del Carmen, muy popular para el buceo y el snorkel por su rica vida marina y aguas claras y tranquilas.",
     "characteristics": {
@@ -254,7 +254,7 @@
   {
     "id": "playa_pocillos",
     "name": "Playa de los Pocillos",
-    "coordinates": [28.9351, -13.6461],
+    "coordinates": [28.923960, -13.637681],
     "photoUrl": "images/playa_pocillos.jpg",
     "description": "Playa muy extensa y ancha en Puerto del Carmen, continuación de Playa Grande. Ideal para largos paseos, tomar el sol con espacio y actividades deportivas.",
     "characteristics": {
@@ -296,7 +296,7 @@
    {
     "id": "playa_quemada",
     "name": "Playa Quemada",
-    "coordinates": [28.8918, -13.7554],
+    "coordinates": [28.907089, -13.735458],
     "photoUrl": "images/playa_quemada.jpg",
     "description": "Pequeña playa de arena negra/callaos en el tranquilo pueblo pesquero del mismo nombre. Ambiente auténtico y varios restaurantes conocidos por su pescado fresco.",
     "characteristics": {
